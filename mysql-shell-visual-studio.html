@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="en" class="svg no-js">
+<head>
+    <meta charset="utf-8" />
+    <!--[if IE ]>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="Language" content="en">
+
+    <title>MySQL :: MySQL 5.7 Reference Manual :: 3.6 Quick-Start Guide: MySQL for Visual Studio</title>
+    <link rel="stylesheet" media="all" href="https://www-jp.mysql.com/common/css/main-20170220.min.css" />
+            <link rel="stylesheet" media="all" href="https://www-jp.mysql.com/common/css/docs-20170220.min.css" />
+    
+    
+    <link rel="stylesheet" media="print" href="https://www-jp.mysql.com/common/css/print-20170220.min.css" />
+
+    
+    
+    
+            <link rel="contents" href="index.html" title="MySQL 5.7 Reference Manual" />
+<link rel="start" href="index.html" title="MySQL 5.7 Reference Manual" />
+<link rel="prev" href="mysql-shell-tutorial-python-documents-in-tables.html" title="3.5.6 Documents in Tables" />
+<link rel="next" href="x-plugin.html?ff=nopfpls" title="3.7 X Plugin" />
+<link rel="up" href="document-store.html" title="3 Using MySQL as a Document Store" />
+
+    
+    <link rel="shortcut icon" href="https://www-jp.mysql.com/common/themes/sakila/favicon.ico" />
+    <script>(function(H){ H.className=H.className.replace(/\bno-js\b/,'js') })(document.documentElement)</script>
+    <script src="https://www-jp.mysql.com/common/js/site-20160129.min.js"></script>
+
+    
+    
+    
+    <!--[if lt IE 9]>
+        <script src="https://www-jp.mysql.com/common/js/polyfills/html5shiv-printshiv-3.7.2.min.js"></script>
+        <script src="https://www-jp.mysql.com/common/js/polyfills/respond-1.4.2.min.js"></script>
+    <![endif]-->
+        <!--[if IE 9]>
+        <style>#docs-sidebar-toc { box-sizing: content-box; }</style>
+    <![endif]-->
+    </head>
+
+<body class="no-sidebar full-page dev">
+    <header>
+
+                        <a href="https://dev.mysql.com/" title="MySQL" id="l1-home-link"></a>
+        
+        <div id="l1-nav-container">
+            <div>
+                <div id="l1-search-auth">
+                    <div id="l1-auth-links">
+                        <a href="https://www.mysql.com/about/contact/"><strong>Contact MySQL</strong></a>
+                        <span id="l1-contact-separator">&nbsp;|&nbsp;</span>
+                        <span id="l1-contact-separator-br"><br /></span>
+                                                     <a href="https://dev.mysql.com/auth/login/?dest=https%3A%2F%2Fdev.mysql.com%2Fdoc%2Frefman%2F5.7%2Fen%2Fmysql-shell-visual-studio.html">Login</a> &nbsp;|&nbsp;
+                             <a href="https://dev.mysql.com/auth/register/">Register</a>
+                                            </div>
+                    <div id="l1-search-box">
+                        <form id="l1-search-form" method="get" action="https://www.oracle.com/search/results">
+                        <input type="hidden" name="cat" value="mysql" />
+                        <input type="hidden" name="Ntk" value="S3" />
+                        <input type="text" id="l1-search-input" name="Ntt" />
+                        <button type="submit" class="l1-search-btn" title="Search"><span class="icon-search"></span></button>
+                        </form>
+                    </div>
+                </div>
+                <div class="social-icons">
+                    <a title="Join us on Facebook" href="http://www.facebook.com/mysql"><span class="icon-facebook-square"></span></a>
+                    <a title="Follow us on Twitter" href="https://twitter.com/#!/mysql"><span class="icon-twitter-square"></span></a>
+                    <a title="Join Google+ to follow MySQL" href="https://plus.google.com/+mysql"><span class="icon-google-plus-square"></span></a>
+                    <a title="Visit our YouTube channel" href="http://www.youtube.com/mysqlchannel"><span class="icon-youtube-square"></span></a>
+                </div>
+                <div id="l1-slogan">
+                    The world's most popular open source database
+                </div>
+            </div>
+            <div>
+                <ul id="l1-nav">
+                    <li>
+                        <a href="https://www.mysql.com/"><!-- <span class="icon-sakila"></span>  -->MySQL.com</a>
+                    </li><li>
+                        <a href="https://www.mysql.com/downloads/"><!-- <span class="icon-download-thin"></span>  -->Downloads</a>
+                    </li><li class="active">
+                        <a href="/doc/"><!-- <span class="icon-books"></span>  -->Documentation</a>
+                    </li><li>
+                        <a href="/"><!-- <span class="icon-code"></span>  -->Developer Zone</a>
+                    </li>                </ul>
+            </div>
+        </div>
+        <div id="sub-header">
+            <div id="l2-nav-container">
+                <div id="l2-nav-toggle">
+                    <span class="icon-three-bars"></span>
+                </div>
+                                                                                        <a class="button nav-button-3" href="/"><span class="icon-code"></span> Developer Zone</a>
+                                                                                                                                    <a class="button nav-button-2" href="https://www.mysql.com/downloads/"><span class="icon-download-thin"></span> Downloads</a>
+                                                                                                <a class="button nav-button-1" href="https://www.mysql.com/"><span class="icon-sakila"></span> MySQL.com</a>
+                                                                        <div id="l2-search-toggle">
+                    <span class="icon-search"></span>
+                </div>
+                <div id="l2-site-icon">
+                                                                                                                                                                                                    <span class="icon-books"></span>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </div>
+                <div id="l1-section-title">
+                    <span id="l1-section-label">
+                        <a href="/doc/">Documentation</a>
+                    </span>
+                </div>
+                <nav>
+                    
+
+<ul id="l2-nav">
+        	<li class="active"><a class="active " href="/doc/refman/en/">MySQL Server</a>
+
+			</li>
+	    	<li class=""><a  href="/doc/index-enterprise.html">MySQL Enterprise</a>
+
+			</li>
+	    	<li class=""><a  href="/doc/workbench/en/">Workbench</a>
+
+			</li>
+	    	<li class=""><a  href="/doc/mysql-router/en/">Router</a>
+
+			</li>
+	    	<li class=""><a  href="/doc/index-cluster.html">MySQL NDB Cluster</a>
+
+			</li>
+	    	<li class=""><a  href="/doc/index-connectors.html">Connectors</a>
+
+			</li>
+	    	<li class=" last"><a  href="/doc/index-other.html">More</a>
+
+			</li>
+	                        <li class="other-section"><a href="https://www.mysql.com/">MySQL.com</a></li>
+                            <li class="other-section"><a href="https://www.mysql.com/downloads/">Downloads</a></li>
+                                        <li class="other-section"><a href="/">Developer Zone</a></li>
+            </ul>
+                </nav>
+            </div>
+            <div id="l3-search-container"></div>
+            <div id="top-orange"><span id="section-nav">Section Menu: &nbsp; </span></div>
+        </div>
+    </header>
+    <div id="page">
+                        <div role="main" id="main">
+
+            
+                
+            
+<div>
+    <div id="docs-sidebar-toc" class="">
+    <div id="docs-toc-inner">
+        <div class="docs-sidebar-header" id="docs-nav-header">
+            <a class="docs-show-hide-nav" id="docs-hide-nav" href="" title="Hide Sidebar"><span class="icon-arrow-small-left"></span></a>
+            <div class="docs-nav-links">
+                                    
+    <a href="mysql-shell-tutorial-python-documents-in-tables.html"
+        title="Previous: Documents in Tables"><span
+        class="icon-chevron-left"></span></a>
+<a href="index.html" title="Start"><span class="icon-book-open"></span></a>
+        <a href="document-store.html" title="Up: Using MySQL as a Document Store"><span class="icon-chevron-up"></span></a>
+    <a href="x-plugin.html"
+        title="Next: X Plugin"><span
+        class="icon-chevron-right"></span></a>
+                            </div>
+        </div>
+                    
+<div id="docs-sidebar-search-container">
+    <div id="docs-sidebar-search-box">
+        <form method="get" action="/doc/search/">
+            <input type="hidden" name="d" id="d" value="12" />
+            <input type="hidden" name="p" id="p" value="1" />
+            <input type="text" name="q" id="q"
+                value="Search this Manual"
+                style="color: #bbb;"
+                onfocus="if(this.value == 'Search this Manual') {this.value='';this.style.color='#555';}"
+                onblur="if(this.value == '') {this.value='Search this Manual';this.style.color='#bbb';}" />
+
+            <button class="docs-sidebar-search-btn" title="Search" type="submit">
+                <span class="icon-search"></span>
+            </button>
+        </form>
+    </div>
+</div>
+                <div class="docs-sidebar-nav">
+            <a class="docs-icon-home" href="/doc/"><span class="icon-home"></span>Documentation Home</a><hr />
+            <div class="docs-sidebar-mtitle">MySQL 5.7 Reference Manual</div>
+            <nav class="doctoc" id="doc-12">
+                                    
+    <ul>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="preface.html">Preface and Legal Notices</a></div></div>                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable " href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="introduction.html">General Information</a></div></div>                        <div class="docs-submenu hidden">
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable " href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="installing.html">Installing and Upgrading MySQL</a></div></div>                        <div class="docs-submenu hidden">
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable  loaded" href=""><span class="icon-chevron-down"></span></a></div><div class="docs-sidebar-nav-link"><a href="document-store.html">Using MySQL as a Document Store</a></div></div>                        <div class="docs-submenu">
+                                    
+    <ul>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="document-store-legalnotice.html">Preproduction Status — Legal Notice</a></div></div>                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="document-store-concepts.html">Key Concepts</a></div></div>                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable  loaded" href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="document-store-setting-up.html">Setting Up MySQL as a Document Store</a></div></div>                        <div class="docs-submenu hidden">
+                                    
+    <ul>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable  loaded" href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="document-store-shell-install.html">Installing MySQL Shell</a></div></div>                        <div class="docs-submenu hidden">
+                                    
+    <ul>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="installing-mysql-shell-windows-quick.html">Installing MySQL Shell on Microsoft Windows</a></div></div>                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="installing-mysql-shell-linux-quick.html">Installing MySQL Shell on Linux</a></div></div>                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="installing-mysql-shell-osx-quick.html">Installing MySQL Shell on OS X</a></div></div>                    </li>
+        </ul>
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="installing-mysql-shell-starting.html">Starting MySQL Shell</a></div></div>                    </li>
+        </ul>
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable  loaded" href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-tutorial-javascript.html">Quick-Start Guide: MySQL Shell for JavaScript</a></div></div>                        <div class="docs-submenu hidden">
+                                    
+    <ul>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-tutorial-javascript-introduction.html">Introduction</a></div></div>                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-tutorial-javascript-download.html">Import Database Sample</a></div></div>                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-tutorial-javascript-shell.html">MySQL Shell</a></div></div>                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable  loaded" href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-tutorial-javascript-documents-collections.html">Documents and Collections</a></div></div>                        <div class="docs-submenu hidden">
+                                    
+    <ul>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-tutorial-javascript-collections-operations.html">Create, List, and Drop Collections</a></div></div>                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-tutorial-javascript-collections-add.html">Add Documents</a></div></div>                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-tutorial-javascript-documents-find.html">Find Documents</a></div></div>                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-tutorial-javascript-documents-modify.html">Modify Documents</a></div></div>                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-tutorial-javascript-documents-remove.html">Remove Documents</a></div></div>                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-tutorial-javascript-indexes-create.html">Create and Drop Indexes</a></div></div>                    </li>
+        </ul>
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable  loaded" href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-tutorial-javascript-relational-tables.html">Relational Tables</a></div></div>                        <div class="docs-submenu hidden">
+                                    
+    <ul>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-tutorial-javascript-table-insert.html">Insert Records into Tables</a></div></div>                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-tutorial-javascript-table-select.html">Select Tables</a></div></div>                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-tutorial-javascript-table-update.html">Update Tables</a></div></div>                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-tutorial-javascript-table-delete.html">Delete Tables</a></div></div>                    </li>
+        </ul>
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-tutorial-javascript-documents-in-tables.html">Documents in Tables</a></div></div>                    </li>
+        </ul>
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable  loaded" href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-tutorial-python.html">Quick-Start Guide: MySQL Shell for Python</a></div></div>                        <div class="docs-submenu hidden">
+                                    
+    <ul>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-tutorial-python-introduction.html">Introduction</a></div></div>                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-tutorial-python-download.html">Import Database Sample</a></div></div>                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-tutorial-python-shell.html">MySQL Shell</a></div></div>                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable  loaded" href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-tutorial-python-collections.html">Documents and Collections</a></div></div>                        <div class="docs-submenu hidden">
+                                    
+    <ul>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-tutorial-python-collections-operations.html">Create, List, and Drop Collections</a></div></div>                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-tutorial-python-documents-add.html">Add Documents</a></div></div>                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-tutorial-python-documents-find.html">Find Documents</a></div></div>                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-tutorial-python-documents-modify.html">Modify Documents</a></div></div>                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-tutorial-python-documents-remove.html">Remove Documents</a></div></div>                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-tutorial-python-documents-index.html">Create and Drop Indexes</a></div></div>                    </li>
+        </ul>
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable  loaded" href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-tutorial-python-relational-tables.html">Relational Tables</a></div></div>                        <div class="docs-submenu hidden">
+                                    
+    <ul>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-tutorial-python-table-insert.html">Insert Records into Tables</a></div></div>                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-tutorial-python-table-select.html">Select Tables</a></div></div>                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-tutorial-python-table-update.html">Update Tables</a></div></div>                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-tutorial-python-table-delete.html">Delete Tables</a></div></div>                    </li>
+        </ul>
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-tutorial-python-documents-in-tables.html">Documents in Tables</a></div></div>                    </li>
+        </ul>
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link current"><a href="mysql-shell-visual-studio.html">Quick-Start Guide: MySQL for Visual Studio</a></div></div>                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable  loaded" href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="x-plugin.html">X Plugin</a></div></div>                        <div class="docs-submenu hidden">
+                                    
+    <ul>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="x-plugin-ssl-connections.html">Using Secure Connections with X Plugin</a></div></div>                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable  loaded" href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="x-plugin-options-variables.html">X Plugin Options and Variables</a></div></div>                        <div class="docs-submenu hidden">
+                                    
+    <ul>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="x-plugin-option-variable-reference.html">X Plugin Option and Variable Reference</a></div></div>                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="x-plugin-system-variables-options.html">X Plugin System Variables and Options</a></div></div>                    </li>
+        </ul>
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable  loaded" href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="x-plugin-system-monitoring.html">Monitoring X Plugin</a></div></div>                        <div class="docs-submenu hidden">
+                                    
+    <ul>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="x-plugin-monitoring-status-variables.html">Status Variables for X Plugin</a></div></div>                    </li>
+        </ul>
+                            </div>
+                    </li>
+        </ul>
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable  loaded" href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="mysql-shell.html">MySQL Shell User Guide</a></div></div>                        <div class="docs-submenu hidden">
+                                    
+    <ul>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-features.html">MySQL Shell Features</a></div></div>                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable  loaded" href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-getting-started.html">Getting Started with MySQL Shell</a></div></div>                        <div class="docs-submenu hidden">
+                                    
+    <ul>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-sessions.html">MySQL Shell Sessions</a></div></div>                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-connections.html">MySQL Shell Connections</a></div></div>                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-global-variables.html">MySQL Shell Global Variables</a></div></div>                    </li>
+        </ul>
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable  loaded" href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-code-execution.html">MySQL Shell Code Execution</a></div></div>                        <div class="docs-submenu hidden">
+                                    
+    <ul>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-interactive-code-execution.html">Interactive Code Execution</a></div></div>                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-batch-code-execution.html">Batch Code Execution</a></div></div>                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-output-formats.html">Output Formats</a></div></div>                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-active-language.html">Active Language</a></div></div>                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-batch-mode-interactive.html">Batch Mode Made Interactive</a></div></div>                    </li>
+        </ul>
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable  loaded" href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-configuring.html">Configuring MySQL Shell</a></div></div>                        <div class="docs-submenu hidden">
+                                    
+    <ul>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-commands.html">MySQL Shell Commands</a></div></div>                    </li>
+        </ul>
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable  loaded" href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-stored-sessions.html">Stored Sessions</a></div></div>                        <div class="docs-submenu hidden">
+                                    
+    <ul>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-stored-session-shell-commands.html">MySQL Shell Stored Session Commands</a></div></div>                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-stored-session-scripting.html">Scripting Stored Sessions</a></div></div>                    </li>
+        </ul>
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable  loaded" href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-application-log.html">MySQL Shell Application Log</a></div></div>                        <div class="docs-submenu hidden">
+                                    
+    <ul>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-application-log-introduction.html">Application Log</a></div></div>                    </li>
+        </ul>
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable  loaded" href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-customizing.html">Customizing MySQL Shell</a></div></div>                        <div class="docs-submenu hidden">
+                                    
+    <ul>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-creating-startup-scripts.html">Working With Start-Up Scripts</a></div></div>                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-adding-module-search-paths.html">Adding Module Search Paths</a></div></div>                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="mysql-shell-overriding-the-default-prompt.html">Overriding the Default Prompt</a></div></div>                    </li>
+        </ul>
+                            </div>
+                    </li>
+        </ul>
+                            </div>
+                    </li>
+        </ul>
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable " href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="tutorial.html">Tutorial</a></div></div>                        <div class="docs-submenu hidden">
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable " href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="programs.html">MySQL Programs</a></div></div>                        <div class="docs-submenu hidden">
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable " href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="server-administration.html">MySQL Server Administration</a></div></div>                        <div class="docs-submenu hidden">
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable " href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="security.html">Security</a></div></div>                        <div class="docs-submenu hidden">
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable " href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="backup-and-recovery.html">Backup and Recovery</a></div></div>                        <div class="docs-submenu hidden">
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable " href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="optimization.html">Optimization</a></div></div>                        <div class="docs-submenu hidden">
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable " href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="language-structure.html">Language Structure</a></div></div>                        <div class="docs-submenu hidden">
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable " href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="globalization.html">Globalization</a></div></div>                        <div class="docs-submenu hidden">
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable " href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="data-types.html">Data Types</a></div></div>                        <div class="docs-submenu hidden">
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable " href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="functions.html">Functions and Operators</a></div></div>                        <div class="docs-submenu hidden">
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable " href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="sql-syntax.html">SQL Statement Syntax</a></div></div>                        <div class="docs-submenu hidden">
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable " href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="innodb-storage-engine.html">The InnoDB Storage Engine</a></div></div>                        <div class="docs-submenu hidden">
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable " href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="storage-engines.html">Alternative Storage Engines</a></div></div>                        <div class="docs-submenu hidden">
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable " href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="ha-overview.html">High Availability and Scalability</a></div></div>                        <div class="docs-submenu hidden">
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable " href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="replication.html">Replication</a></div></div>                        <div class="docs-submenu hidden">
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable " href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="group-replication.html">Group Replication</a></div></div>                        <div class="docs-submenu hidden">
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable " href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="mysql-cluster.html">MySQL NDB Cluster 7.5</a></div></div>                        <div class="docs-submenu hidden">
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable " href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="partitioning.html">Partitioning</a></div></div>                        <div class="docs-submenu hidden">
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable " href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="stored-programs-views.html">Stored Programs and Views</a></div></div>                        <div class="docs-submenu hidden">
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable " href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="information-schema.html">INFORMATION_SCHEMA Tables</a></div></div>                        <div class="docs-submenu hidden">
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable " href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="performance-schema.html">MySQL Performance Schema</a></div></div>                        <div class="docs-submenu hidden">
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable " href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="sys-schema.html">MySQL sys Schema</a></div></div>                        <div class="docs-submenu hidden">
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable " href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="connectors-apis.html">Connectors and APIs</a></div></div>                        <div class="docs-submenu hidden">
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable " href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="extending-mysql.html">Extending MySQL</a></div></div>                        <div class="docs-submenu hidden">
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable " href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="mysql-enterprise.html">MySQL Enterprise Edition</a></div></div>                        <div class="docs-submenu hidden">
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="workbench.html">MySQL Workbench</a></div></div>                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable " href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="faqs.html">MySQL 5.7 Frequently Asked Questions</a></div></div>                        <div class="docs-submenu hidden">
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable " href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="error-handling.html">Errors, Error Codes, and Common Problems</a></div></div>                        <div class="docs-submenu hidden">
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable " href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="restrictions.html">Restrictions and Limits</a></div></div>                        <div class="docs-submenu hidden">
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><a class="expandable " href=""><span class="icon-chevron-right"></span></a></div><div class="docs-sidebar-nav-link"><a href="indexes.html">Indexes</a></div></div>                        <div class="docs-submenu hidden">
+                            </div>
+                    </li>
+            <li>
+            <div><div class="docs-sidebar-nav-icon"><span class="icon-dot"></span></div><div class="docs-sidebar-nav-link"><a href="glossary.html">MySQL Glossary</a></div></div>                    </li>
+        </ul>
+                            </nav>
+        </div>
+
+        
+<a class="docs-sidebar-section" href=""><span class="icon-related"></span>
+    <span class="text">Related Documentation</span></a>
+<div class="docs-sidebar-accordian open">
+    <div class="text">
+        <a href="/doc/relnotes/mysql/5.7/en/">MySQL 5.7 Release Notes</a><br />
+        </div>
+</div>
+
+    <a class="docs-sidebar-section" href=""><span class="icon-download-thin"></span>
+        <span class="text">
+            Download
+                            this Manual
+                    </span>
+    </a>
+    <div class="docs-sidebar-accordian open">
+        <div class="text">
+                        <a href="https://downloads.mysql.com/docs/refman-5.7-en.pdf">PDF (US Ltr)</a>
+            - 37.4Mb<br />
+                        <a href="https://downloads.mysql.com/docs/refman-5.7-en.a4.pdf">PDF (A4)</a>
+            - 37.5Mb<br />
+                        <a href="https://downloads.mysql.com/docs/mysql-ref-manual-5.7-en-pdf-1-20170222.noarch.rpm">PDF (RPM)</a>
+            - 37.0Mb<br />
+                        <a href="https://downloads.mysql.com/docs/refman-5.7-en.epub">EPUB</a>
+            - 10.5Mb<br />
+                        <a href="https://downloads.mysql.com/docs/refman-5.7-en.html-chapter.tar.gz">HTML Download (TGZ)</a>
+            - 10.3Mb<br />
+                        <a href="https://downloads.mysql.com/docs/refman-5.7-en.html-chapter.zip">HTML Download (Zip)</a>
+            - 10.3Mb<br />
+                        <a href="https://downloads.mysql.com/docs/mysql-ref-manual-5.7-en-html-chapter-1-20170222.noarch.rpm">HTML Download (RPM)</a>
+            - 9.0Mb<br />
+                        <a href="https://downloads.mysql.com/docs/refman-5.7-en.eclipse.tar.gz">Eclipse Doc Plugin (TGZ)</a>
+            - 11.2Mb<br />
+                        <a href="https://downloads.mysql.com/docs/refman-5.7-en.eclipse.zip">Eclipse Doc Plugin (Zip)</a>
+            - 13.4Mb<br />
+                        <a href="https://downloads.mysql.com/docs/refman-5.7-en.man-gpl.tar.gz">Man Pages (TGZ)</a>
+            - 203.9Kb<br />
+                        <a href="https://downloads.mysql.com/docs/refman-5.7-en.man-gpl.zip">Man Pages (Zip)</a>
+            - 309.1Kb<br />
+                        <a href="https://downloads.mysql.com/docs/mysql-5.7.info.gz">Info (Gzip)</a>
+            - 3.4Mb<br />
+                        <a href="https://downloads.mysql.com/docs/mysql-5.7.info.zip">Info (Zip)</a>
+            - 3.4Mb<br />
+                    </div>
+    </div>
+
+<a class="docs-sidebar-section" href=""><span class="icon-book"></span>
+    <span class="text">Excerpts from this Manual</span></a>
+<div class="docs-sidebar-accordian">
+    <div class="text">
+                <a href="/doc/mysql-backup-excerpt/5.7/en/">MySQL Backup and Recovery</a><br />
+                <a href="/doc/mysql-g11n-excerpt/5.7/en/">MySQL Globalization</a><br />
+                <a href="/doc/mysql-infoschema-excerpt/5.7/en/">MySQL Information Schema</a><br />
+                <a href="/doc/mysql-installation-excerpt/5.7/en/">MySQL Installation Guide</a><br />
+                <a href="/doc/mysql-linuxunix-excerpt/5.7/en/">MySQL and Linux/Unix</a><br />
+                <a href="/doc/mysql-osx-excerpt/5.7/en/">MySQL and OS X</a><br />
+                <a href="/doc/mysql-partitioning-excerpt/5.7/en/">MySQL Partitioning</a><br />
+                <a href="/doc/mysql-perfschema-excerpt/5.7/en/">MySQL Performance Schema</a><br />
+                <a href="/doc/mysql-replication-excerpt/5.7/en/">MySQL Replication</a><br />
+                <a href="/doc/mysql-repo-excerpt/5.7/en/">Using the MySQL Yum Repository</a><br />
+                <a href="/doc/mysql-reslimits-excerpt/5.7/en/">MySQL Restrictions and Limitations</a><br />
+                <a href="/doc/mysql-security-excerpt/5.7/en/">Security in MySQL</a><br />
+                <a href="/doc/mysql-solaris-excerpt/5.7/en/">MySQL and Solaris</a><br />
+                <a href="/doc/mysql-sourcebuild-excerpt/5.7/en/">Building MySQL from Source</a><br />
+                <a href="/doc/mysql-startstop-excerpt/5.7/en/">Starting and Stopping MySQL</a><br />
+                <a href="/doc/mysql-tutorial-excerpt/5.7/en/">MySQL Tutorial</a><br />
+                <a href="/doc/mysql-windows-excerpt/5.7/en/">MySQL and Windows</a><br />
+                <a href="/doc/mysql-cluster-excerpt/5.7/en/">MySQL NDB Cluster 7.5</a><br />
+            </div>
+</div>
+
+        <br /><span id="wkr"><br /></span>
+    </div>
+    </div>
+
+    <div id="docs-main" class="has-toc">
+    <div id="docs-main-inner">
+
+                <div class="right" id="docs-version-nav">
+            <a href="" id="docs-version-nav-toggle">version 5.7
+            <span class="icon-chevron-down"></span></a>
+            <div id="docs-version-list">
+                                                        <a                         href="/doc/refman/8.0/en/mysql-shell-visual-studio.html">
+                        8.0
+                                            </a><br />
+                                                                                                                <a                         class="tooltip-left"
+                        data-tooltip="The page you are viewing does not exist in version 5.6.
+                        This link will take you to the Table of Contents."
+                                                href="/doc/refman/5.6/en/">
+                        5.6
+                                            </a><br />
+                                                                            <a                         class="tooltip-left"
+                        data-tooltip="The page you are viewing does not exist in version 5.5.
+                        This link will take you to the Table of Contents."
+                                                href="/doc/refman/5.5/en/">
+                        5.5
+                                            </a><br />
+                                                                        <div id="docs-version-nav-lang">
+                                                                                                                                                    <a                                     class="tooltip-left"
+                                    data-tooltip="The page you are viewing does not exist in version
+                                    5.6 (JA).
+                                    This link will take you to the Table of Contents."
+                                                                        href="/doc/refman/5.6/ja/">
+                                    5.6&nbsp;
+                                                                            Japanese
+                                                                    </a><br />
+                                                                                            </div>
+                            </div>
+        </div>
+        
+        <div id="docs-show-nav" class="left hidden" style="margin-right: 15px;">
+            <a class="docs-show-hide-nav" href=""
+                title="Show Sidebar"><span class="icon-arrow-small-right"></span></a>
+        </div>
+
+                        <div id="docs-breadcrumbs">
+            <a href="/doc/refman/5.7/en/">MySQL 5.7 Reference Manual</a> &nbsp;/&nbsp;
+                                                        <a href="document-store.html">Using MySQL as a Document Store</a> &nbsp;/&nbsp;
+                                                                                    Quick-Start Guide: MySQL for Visual Studio
+                                    </div>
+        
+        <div id="docs-body">
+        
+<div class="section">
+<div class="titlepage">
+<div>
+<div>
+<h2 class="title"><a name="mysql-shell-visual-studio"></a>3.6 Quick-Start Guide: MySQL for Visual Studio</h2>
+
+</div>
+
+</div>
+
+</div>
+<p>
+    This section explains how to use MySQL Shell to script a server
+    using MySQL for Visual Studio.
+</p>
+<div class="simplesect">
+
+<div class="titlepage">
+<div>
+
+<div class="simple">
+<h3 class="title"><a name="mysql-shell-visual-studio-introduction"></a>Introduction</h3>
+</div>
+</div>
+</div>
+<p>
+      MySQL for Visual Studio provides access to MySQL objects and data without forcing
+      developers to leave Visual Studio. Designed and developed as a
+      Visual Studio package, MySQL for Visual Studio integrates directly into Server
+      Explorer providing a seamless experience for setting up new
+      connections and working with database objects.
+    </p><p>
+      The following MySQL for Visual Studio features are available as of version 2.0.2:
+</p>
+<div class="itemizedlist">
+<ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+          JavaScript and Python code editors, where scripts in those
+          languages can be executed to query data from a MySQL database.
+        </p></li><li class="listitem"><p>
+          Better integration with the Server Explorer to open MySQL,
+          JavaScript, and Python code editors directly from a connected
+          MySQL instance.
+        </p></li><li class="listitem"><p>
+          A newer user interface for displaying query results, where
+          different views are presented from result sets returned by a
+          MySQL Server like:
+</p>
+<div class="itemizedlist">
+<ul class="itemizedlist" style="list-style-type: circle; "><li class="listitem"><p>
+              Multiple tabs for each result set returned by an executed
+              query.
+            </p></li><li class="listitem"><p>
+              Results view, where the information can be seen in grid,
+              tree, or text representation for JSON results.
+            </p></li><li class="listitem"><p>
+              Field types view, where information about the columns of a
+              result set is shown, such as names, data types, character
+              sets, and more.
+            </p></li><li class="listitem"><p>
+              Query statistics view, displaying information about the
+              executed query such as execution times, processed rows,
+              index and temporary tables usage, and more.
+            </p></li><li class="listitem"><p>
+              Execution plan view, displaying an explanation of the
+              query execution done internally by the MySQL Server.
+</p></li></ul>
+</div>
+</li></ul>
+</div>
+
+</div>
+<div class="simplesect">
+<div class="titlepage">
+<div>
+<div class="simple">
+<h3 class="title"><a name="mysql-shell-visual-studio-getting-started"></a>Getting Started</h3>
+
+</div>
+
+</div>
+
+</div>
+<p>
+      The requirements are MySQL for Visual Studio 2.0.2 or higher, and Visual Studio
+      2010 or higher. X DevAPI support requires MySQL Server 5.7.12 or
+      higher with the X plugin enabled.
+</p>
+</div>
+<div class="simplesect">
+<div class="titlepage">
+<div>
+<div class="simple">
+<h3 class="title"><a name="mysql-shell-visual-studio-code-editor-open"></a>Opening a Code Editor</h3>
+
+</div>
+
+</div>
+
+</div>
+<p>
+      Before opening a code editor that can execute queries against a
+      MySQL server, a connection needs to be established:
+</p>
+<div class="orderedlist">
+<ol class="orderedlist" type="1"><li class="listitem"><p>
+          Open the Server Explorer pane through the View menu, or with
+          <span class="keycap"><strong>Control</strong></span> + <span class="keycap"><strong>W</strong></span>,
+          <span class="keycap"><strong>K</strong></span>.
+        </p></li><li class="listitem"><p>
+          Right-click on the Data Connections node, select <span class="guilabel">Add
+          Connection...</span>.
+        </p></li><li class="listitem"><p>
+          In the <span class="guilabel">Add Connection</span> dialog, make sure
+          the MySQL Data Provider is being used and fill in all the
+          information.
+</p>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+
+<div class="admon-title">
+Note
+</div>
+<p>
+            To enter the port number, click
+            <span class="guibutton">Advanced...</span> and set the Port among
+            the list of connection properties.
+</p>
+</div>
+</li><li class="listitem"><p>
+          Click <span class="guibutton">Test Connection</span> to ensure you
+          have a valid connection, then click <span class="guibutton">OK</span>.
+        </p></li><li class="listitem"><p>
+          Right-click your newly created connection, select <span class="guimenu">New
+          MySQL Script</span> and then the language for the code
+          editor you want to open.
+</p></li></ol>
+</div>
+<p>
+      For existing MySQL connections, to create a new editor you need
+      only to do the last step.
+</p>
+</div>
+<div class="simplesect">
+<div class="titlepage">
+<div>
+<div class="simple">
+<h3 class="title"><a name="mysql-shell-visual-studio-code-editor-using"></a>Using the Code Editor</h3>
+
+</div>
+
+</div>
+
+</div>
+<p>
+      The MySQL script editors have a toolbar at the top where
+      information about the session is displayed, along with the actions
+      that can be executed.
+</p>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+
+<div class="admon-title">
+Note
+</div>
+<p>
+        Note the first two buttons in the toolbar represent a way to
+        connect or disconnect from a MySQL server. If the editor was
+        opened from the Server Explorer, the connection will be already
+        established for the new editor window.
+</p>
+</div>
+<p>
+      The third button is the <span class="guibutton">Run</span> button, the
+      script contained in the editor window is executed by clicking it
+      and results from the script execution are displayed below the
+      script window.
+</p>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+
+<div class="admon-title">
+Note
+</div>
+<p>
+        Some commands in the MySQL Shell can be executed without
+        appending <span class="command"><strong>execute()</strong></span> while in interactive
+        mode. In MySQL for Visual Studio, these commands do require
+        <span class="command"><strong>execute()</strong></span>. In other words, append
+        ".execute()" to execute commands.
+</p>
+</div>
+
+</div>
+
+</div>
+<br />
+        </div>
+
+                <div id="docs-in-page-nav-container">
+            <div id="docs-in-page-nav">
+                
+    <a href="mysql-shell-tutorial-python-documents-in-tables.html"
+        title="Previous: Documents in Tables"><span
+        class="icon-chevron-left"></span> PREV</a> &nbsp;
+<a href="index.html" title="Start"> HOME</a> &nbsp;
+        <a href="document-store.html" title="Up: Using MySQL as a Document Store"> UP</a> &nbsp;
+    <a href="x-plugin.html"
+        title="Next: X Plugin">NEXT <span
+        class="icon-chevron-right"></span></a>
+            </div>
+        </div>
+        
+         <div id="docs-body-extra">
+             
+<a class="docs-sidebar-section" href=""><span class="icon-related"></span>
+    <span class="text">Related Documentation</span></a>
+<div class="docs-sidebar-accordian">
+    <div class="text">
+        <a href="/doc/relnotes/mysql/5.7/en/">MySQL 5.7 Release Notes</a><br />
+        </div>
+</div>
+
+    <a class="docs-sidebar-section" href=""><span class="icon-download-thin"></span>
+        <span class="text">
+            Download
+                            this Manual
+                    </span>
+    </a>
+    <div class="docs-sidebar-accordian">
+        <div class="text">
+                        <a href="https://downloads.mysql.com/docs/refman-5.7-en.pdf">PDF (US Ltr)</a>
+            - 37.4Mb<br />
+                        <a href="https://downloads.mysql.com/docs/refman-5.7-en.a4.pdf">PDF (A4)</a>
+            - 37.5Mb<br />
+                        <a href="https://downloads.mysql.com/docs/mysql-ref-manual-5.7-en-pdf-1-20170222.noarch.rpm">PDF (RPM)</a>
+            - 37.0Mb<br />
+                        <a href="https://downloads.mysql.com/docs/refman-5.7-en.epub">EPUB</a>
+            - 10.5Mb<br />
+                        <a href="https://downloads.mysql.com/docs/refman-5.7-en.html-chapter.tar.gz">HTML Download (TGZ)</a>
+            - 10.3Mb<br />
+                        <a href="https://downloads.mysql.com/docs/refman-5.7-en.html-chapter.zip">HTML Download (Zip)</a>
+            - 10.3Mb<br />
+                        <a href="https://downloads.mysql.com/docs/mysql-ref-manual-5.7-en-html-chapter-1-20170222.noarch.rpm">HTML Download (RPM)</a>
+            - 9.0Mb<br />
+                        <a href="https://downloads.mysql.com/docs/refman-5.7-en.eclipse.tar.gz">Eclipse Doc Plugin (TGZ)</a>
+            - 11.2Mb<br />
+                        <a href="https://downloads.mysql.com/docs/refman-5.7-en.eclipse.zip">Eclipse Doc Plugin (Zip)</a>
+            - 13.4Mb<br />
+                        <a href="https://downloads.mysql.com/docs/refman-5.7-en.man-gpl.tar.gz">Man Pages (TGZ)</a>
+            - 203.9Kb<br />
+                        <a href="https://downloads.mysql.com/docs/refman-5.7-en.man-gpl.zip">Man Pages (Zip)</a>
+            - 309.1Kb<br />
+                        <a href="https://downloads.mysql.com/docs/mysql-5.7.info.gz">Info (Gzip)</a>
+            - 3.4Mb<br />
+                        <a href="https://downloads.mysql.com/docs/mysql-5.7.info.zip">Info (Zip)</a>
+            - 3.4Mb<br />
+                    </div>
+    </div>
+
+<a class="docs-sidebar-section" href=""><span class="icon-book"></span>
+    <span class="text">Excerpts from this Manual</span></a>
+<div class="docs-sidebar-accordian">
+    <div class="text">
+                <a href="/doc/mysql-backup-excerpt/5.7/en/">MySQL Backup and Recovery</a><br />
+                <a href="/doc/mysql-g11n-excerpt/5.7/en/">MySQL Globalization</a><br />
+                <a href="/doc/mysql-infoschema-excerpt/5.7/en/">MySQL Information Schema</a><br />
+                <a href="/doc/mysql-installation-excerpt/5.7/en/">MySQL Installation Guide</a><br />
+                <a href="/doc/mysql-linuxunix-excerpt/5.7/en/">MySQL and Linux/Unix</a><br />
+                <a href="/doc/mysql-osx-excerpt/5.7/en/">MySQL and OS X</a><br />
+                <a href="/doc/mysql-partitioning-excerpt/5.7/en/">MySQL Partitioning</a><br />
+                <a href="/doc/mysql-perfschema-excerpt/5.7/en/">MySQL Performance Schema</a><br />
+                <a href="/doc/mysql-replication-excerpt/5.7/en/">MySQL Replication</a><br />
+                <a href="/doc/mysql-repo-excerpt/5.7/en/">Using the MySQL Yum Repository</a><br />
+                <a href="/doc/mysql-reslimits-excerpt/5.7/en/">MySQL Restrictions and Limitations</a><br />
+                <a href="/doc/mysql-security-excerpt/5.7/en/">Security in MySQL</a><br />
+                <a href="/doc/mysql-solaris-excerpt/5.7/en/">MySQL and Solaris</a><br />
+                <a href="/doc/mysql-sourcebuild-excerpt/5.7/en/">Building MySQL from Source</a><br />
+                <a href="/doc/mysql-startstop-excerpt/5.7/en/">Starting and Stopping MySQL</a><br />
+                <a href="/doc/mysql-tutorial-excerpt/5.7/en/">MySQL Tutorial</a><br />
+                <a href="/doc/mysql-windows-excerpt/5.7/en/">MySQL and Windows</a><br />
+                <a href="/doc/mysql-cluster-excerpt/5.7/en/">MySQL NDB Cluster 7.5</a><br />
+            </div>
+</div>
+         </div>
+
+                     
+<div id="docs-comments">
+    <div class="docs-comments-header"><span class="icon-bubbles"></span> User Comments</div>
+
+    <div id="comment-listing">
+    
+    </div>
+
+        <div class="docs-comment-disclaimer">
+        <a href="https://dev.mysql.com/auth/register/?dest=https%3A%2F%2Fdev.mysql.com%2Fdoc%2Frefman%2F5.7%2Fen%2Fmysql-shell-visual-studio.html%3Facf%3D1%23add-comment" class="docs-comment-btn right">Sign Up</a>
+        <a href="https://dev.mysql.com/auth/login/?dest=https%3A%2F%2Fdev.mysql.com%2Fdoc%2Frefman%2F5.7%2Fen%2Fmysql-shell-visual-studio.html%3Facf%3D1%23add-comment" class="docs-comment-btn right">Login</a>
+        You must be logged in to post a comment.
+    </div>
+    </div>
+              </div>
+     </div>
+
+</div>
+
+<script>
+$(function() {
+    var doc = new $.doc({ 'mobile': $.browser.mobile, 'docId': 1 });
+});
+</script>
+    
+
+            
+        </div>
+    </div>
+
+    <footer class="collapsed">
+        <div id="footer-links">
+
+            <div id="footer-nav"></div>
+
+            <div id="footer-contact">
+                <p><span class="top">Contact Sales</span></p>
+                <p>USA: <span class="nobr">+1-866-221-0634</span><br />
+Canada: <span class="nobr">+1-866-221-0634</span><br /><br />
+
+Germany: <span class="nobr">+49 89 143 01280</span><br />
+France: <span class="nobr">+33 1 57 60 83 57</span><br />
+Italy: <span class="nobr">+39 02 249 59 120</span><br />
+UK: <span class="nobr">+44 207 553 8447</span><br /><br />
+
+Japan: <span class="nobr">0120-065556</span><br />
+China: <span class="nobr">10800-811-0823</span><br />
+India: <span class="nobr">0008001005870</span><br /><br />
+
+<a href="https://www.mysql.com/about/contact/phone/">More Countries&nbsp;&raquo;</a><br />
+                <strong><a href="https://www.mysql.com/about/contact/">Contact Us Online&nbsp;&raquo;</a></strong>
+                                </p>
+            </div>
+
+            <div class="links">
+                <ul>
+                    <li class="top"><a href="https://www.mysql.com/products/">Products</a></li>
+                    <li><a href="https://www.mysql.com/products/enterprise/">MySQL Enterprise Edition</a></li>
+                    <li><a href="https://www.mysql.com/products/standard/">MySQL Standard Edition</a></li>
+                    <li><a href="https://www.mysql.com/products/classic/">MySQL Classic Edition</a></li>
+                    <li><a href="https://www.mysql.com/products/cluster/">MySQL Cluster CGE</a></li>
+                    <li><a href="https://www.mysql.com/oem/">MySQL Embedded (OEM/ISV)</a></li>
+                </ul>
+                <br />
+                <ul>
+                    <li class="top"><a href="https://www.mysql.com/services/">Services</a></li>
+                    <li><a href="https://www.mysql.com/training/">Training</a></li>
+                    <li><a href="https://www.mysql.com/certification/">Certification</a></li>
+                    <li><a href="https://www.mysql.com/consulting/">Consulting</a></li>
+                    <li><a href="https://www.mysql.com/support/">Support</a></li>
+                </ul>
+            </div>
+
+            <div class="links">
+                <ul>
+                    <li class="top"><a href="https://dev.mysql.com/downloads/">Downloads</a></li>
+                    <li><a href="https://dev.mysql.com/downloads/mysql/">MySQL Community Server</a></li>
+                    <li><a href="https://dev.mysql.com/downloads/cluster/">MySQL NDB Cluster</a></li>
+                    <li><a href="https://dev.mysql.com/downloads/shell/">MySQL Shell</a></li>
+                    <li><a href="https://dev.mysql.com/downloads/router/">MySQL Router</a></li>
+                    <li><a href="https://dev.mysql.com/downloads/workbench/">MySQL Workbench</a></li>
+                </ul>
+                <br />
+                <ul>
+                    <li class="top"><a href="https://www.mysql.com/about/">About MySQL</a></li>
+                    <li><a href="https://www.mysql.com/about/contact/">Contact Us</a></li>
+                                                            <li><a href="https://www.mysql.com/buy-mysql/">How to Buy</a></li>
+                    <li><a href="https://www.mysql.com/partners/">Partners</a></li>
+                    <li><a href="https://www.mysql.com/about/jobs/">Job Opportunities</a></li>
+                    <li><a href="https://www.mysql.com/sitemap.html">Site Map</a></li>
+                </ul>
+            </div>
+
+            <div class="links">
+                <ul>
+                    <li class="top"><a href="https://dev.mysql.com/doc/">Documentation</a></li>
+                    <li><a href="https://dev.mysql.com/doc/refman/en/">MySQL Reference Manual</a></li>
+                    <li><a href="https://dev.mysql.com/doc/workbench/en/">MySQL Workbench</a></li>
+                    <li><a href="https://dev.mysql.com/doc/index-cluster.html">MySQL NDB Cluster</a></li>
+                    <li><a href="https://dev.mysql.com/doc/index-connectors.html">MySQL Connectors</a></li>
+                    <li><a href="https://dev.mysql.com/doc/#topic">Topic Guides</a></li>
+                </ul>
+                <br />
+                <ul>
+                    <li class="top"><a href="https://www.mysql.com/about/legal/">Legal</a></li>
+                    <li><a href="https://www.mysql.com/about/legal/">Legal Policies</a></li>
+                    <li><a href="http://www.oracle.com/us/legal/privacy/index.htm">Your Privacy Rights</a></li>
+                    <li><a href="http://www.oracle.com/us/legal/terms/index.html">Terms of Use</a></li>
+                    <li><a href="http://www.oracle.com/us/legal/third-party-trademarks/index.html">Trademark Policy</a></li>
+                    <li><a href="http://www.oracle.com/technetwork/community/oca-486395.html">Contributor Agreement</a></li>
+                    <li><div id="teconsent"><script async="async" type="text/javascript" src="//consent.truste.com/notice?domain=mysql.com&c=teconsent&text=true" crossorigin=""></script></div></li>
+                </ul>
+            </div>
+        </div>
+        <div id="footer-bottom">
+                                    <div id="footer-collapse">
+                <a href="" id="expand-footer"
+                    title="Expand Footer"><span
+                    class="icon-chevron-up"></span></a>
+            </div>
+                        <div id="footer-logo">
+                <a href="http://www.oracle.com/"><span id="oracle-logo"></span></a>
+                &nbsp; &copy; 2017, Oracle Corporation and/or its affiliates
+            </div>
+                        <div class="social-icons">
+                <a title="Join us on Facebook" href="http://www.facebook.com/mysql"><span class="icon-facebook-square"></span></a>
+                <a title="Follow us on Twitter" href="https://twitter.com/#!/mysql"><span class="icon-twitter-square"></span></a>
+                <a title="Join Google+ to follow MySQL" href="https://plus.google.com/+mysql"><span class="icon-google-plus-square"></span></a>
+                <a title="Visit our YouTube channel" href="http://www.youtube.com/mysqlchannel"><span class="icon-youtube-square"></span></a>
+            </div>
+            <br class="clear" />
+        </div>
+    </footer>
+
+        <script src="https://www-jp.mysql.com/common/js/metrics/s_code_remote.js"></script>
+
+        
+</body>
+</html>
