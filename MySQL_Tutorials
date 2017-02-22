@@ -1,0 +1,1428 @@
+Sign up for cloud based IDE - Text lecture
+Section 1, Lecture 5
+To create an account at cloud9, go to c9.io and sign-up
+
+Select php, apache as your workspace type
+
+To install MySQL, type the following in your workspace directory and hit return -> mysql-ctl install
+To start the MySQL server, type the following and hit return -> mysql-ctl start
+To open a command line interface with direct access to your mysql database type in the following and hit return -> mysql-ctl cli
+
+To see the hostname, type in the following and hit return -> select @@hostname;
+**** Don't forget the semi-colon at the end! ****
+
+To show databases -> show databases;
+
+To exit the mysql cli -> exit
+
+Command line crash course online -> http://cli.learncodethehardway.org/book/
+
+---------------------------------------------------------------------------
+
+Create a Database/Schema - Text lecture
+Section 2, Lecture 8
+Database Server: Service running on a machine (server or desktop), it houses many databases.
+
+Database: Contains all of the persistent information for your applications
+
+Schema: In MySQL, this is synonymous with database and can be used interchangeably, but shouldn’t because SQL Server and Oracle treat them differently. 
+SQL Server/Oracle - Schema is a namespace inside the database with different permissions associated with it.
+
+To clear screen from mysql cli -> \! clear
+
+Open MySQL ->
+Type : mysql-ctl cli
+
+Some commands ->
+
+show databases;
+
+show schemas;
+
+SQL statements end with “;”
+If you don’t put the “;”, MySQL will wait to execute until you ad it in.
+
+To create a new database ->
+create database project1;
+
+MySQL is case sensitive.
+Don’t put spaces in the database name.  While possible, it will just cause issues later..  Spaces generally cause annoyances in names of databases, tables, columns and everything.
+
+create schema project1; this statement would accomplish the same thing as the command above to create database
+
+Create another database ->
+create database mashrur1;
+
+show databases;
+
+To delete (or drop) the database mashrur1 (warning: this will immediately delete it) ->
+drop database mashrur1;
+
+To use a specific database for queries we'll be running and impacting (let's say we want this to be project1):
+use project1;
+
+Now when we create and do things like create objects or call objects, database “project1” is assumed.
+Note: up arrow recalls previous commands.
+
+-----------------------------------------------------------------------------------------------------------
+
+Working with tables - Text lecture
+Section 2, Lecture 11
+- Tables are just like Excel Spreadsheets
+
+- Columns have headers and are for certain types of data like strings, dates, numbers etc.
+- Rows are the actual data which all fit inside the column data types.
+
+- Structure matters. Forgetting a comma or a line or a space can break things.
+
+To create a table called people (The capitalization of CREATE TABLE below is to separate out the sql code from the names of the tables, you can also just say create table, capitalization matters in column names):
+CREATE TABLE people ( PersonID int
+                     ,first_name varchar(100)
+                     ,last_name  varchar(100)
+);
+
+To show database in use, type in select database();
+show tables;
+
+CREATE TABLE people2 ( PersonID INT NOT NULL AUTO_INCREMENT
+                      ,FIRST_NAME VARCHAR(100) NULL
+                      ,LAST_NAME VARCHAR(100) NULL
+                      ,PRIMARY KEY (PersonID));
+
+Primary Key is a unique value that each row will have, auto_increment makes it easy by automatically assigning them
+
+If we want to remove a table, use DROP TABLE (or drop table)
+show tables;
+
+To add a column, first see the columns that are there by typing in -> show columns from people2;
+
+Notice there are 3 columns;
+
+To add a column called DOB:
+alter table people2 add column DOB date NULL;
+
+Similarly, to drop a column, type in:
+alter table people2 drop column DOB;   
+show columns from people2;
+
+To delete tables:
+drop table people;
+drop table people2;
+
+This will get rid of both tables
+
+Homework exercise: Create two tables - actors and movies
+actors will have columns ActorID (as primary key), first_name, last_name and specify primary key
+movies will have columns MovieID (as primary key), title, release_year, rating and specify primary key
+
+---------------------------------------------------------------------------------------------------------
+
+Inserting rows of data - Text lecture
+Section 2, Lecture 13
+To add data to tables:
+
+INSERT INTO actors ( FIRST_NAME , LAST_NAME )
+VALUES ('Ben','Stiller');
+
+We’ll discuss select further in the next lecture, but to show all data in the table:
+SELECT *
+FROM project1.actors; 
+
+To insert multiple values into actors table:
+INSERT INTO project1.actors ( FIRST_NAME , LAST_NAME )
+VALUES ('Owen','Wilson')
+      ,('Christine','Taylor')
+      ,('Will','Ferrell')
+      ,('Milla','Jovovich')
+      ,('Jerry','Stiller')
+      ,('David','Duchovny')
+      ,('Jon','Voight')
+      ,('Nathan','Graham');
+
+Now that we have Zoolander, lets add new actors from Zoolander 2
+INSERT INTO actors ( FIRST_NAME , LAST_NAME )
+VALUES ('Kristen','Wiig')
+      ,('Penélope','Cruz')
+      ,('Lenny','Kravitz')
+      ,('Macaulay','Culkin')
+      ,('Justin','Bieber')
+      ,('Cyrus','Arnold');
+   
+Now let's add data to the movies table:
+INSERT INTO movies ( Title , ReleaseYear, Rating )
+VALUES ('Zoolander',2001,'PG-13')
+      ,('Zoolander2',2016,'PG-13')
+      ,('Night at the Museum: Secret of the Tomb',2014,'PG')
+      ,('Night at the Museum: Battle of the Smithsonian',2009,'PG')
+      ,('Night at the Museum',2005,'PG')
+      ,('National Treasure',2004,'PG')
+      ,('Tropic Thunder',2008,'R');  
+
+SELECT * FROM movies; -> This will display all data from the movies table
+
+---------------------------------------------------------------------------------------------
+
+Select - Text lecture
+Section 2, Lecture 15
+SELECT * FROM actors;
+
+SELECT * FROM movies;
+
+-> SELECT section lists the results to be returned.
+* Means everything
+From is where you list tables.
+We will add lots of extra details but the SELECT * FROM is the general structure of how we 
+retrieve any and all data from the database.
+
+Listing the columns returns the same results as *
+SELECT ActorID
+      ,FIRST_NAME
+      ,LAST_NAME
+FROM actors; 
+  
+SELECT FIRST_NAME
+      ,LAST_NAME
+FROM actors;   
+Returns same number of rows, but only the columns that were requested (FIRST_NAME AND LAST_NAME)
+
+---------------------------------------------------------------------------------------------------
+
+Concat and substring - Text lecture
+Section 2, Lecture 17
+CONCAT - Use to add columns together for display
+
+SELECT CONCAT(LAST_NAME, ', ', FIRST_NAME)
+FROM actors;    
+
+Returns same number of rows, but with our calculated row.
+
+SQL lets you rename columns for display as well:
+SELECT CONCAT(LAST_NAME, ', ', FIRST_NAME) AS ACTOR_NAME
+FROM actors;      
+
+To grab certain data from the rows under a column (instead of all the data) you can use substring:
+SELECT LAST_NAME, SUBSTRING(LAST_NAME,1,3)
+FROM actors;  
+
+A useful query to generate user name from first_name and last_name columns:
+SELECT FIRST_NAME
+      ,LAST_NAME
+      ,SUBSTRING(FIRST_NAME,1,1)
+      ,CONCAT(SUBSTRING(FIRST_NAME,1,1),LAST_NAME) AS USER_NAME
+FROM actors;  
+
+Select allows you to name columns with spaces using “”, you can create new columns, and calculate columns.  
+You can reuse columns for basically anything.
+
+SELECT CONCAT(LAST_NAME, ', ', FIRST_NAME) AS "Actor's Names"
+      ,LAST_NAME AS LNAME
+      ,FIRST_NAME AS "First Name"
+      ,CONCAT(SUBSTRING(FIRST_NAME,1,1),LAST_NAME) AS USER_NAME
+      ,'Any Text' AS Anything
+      ,1+2        AS Math
+FROM actors;
+
+---------------------------------------------------------------------------------------------------
+
+Homework challenge - Text version
+Section 2, Lecture 19
+Phase 1:
+
+Create a table which should have the following columns:
+Primary Key (int), Fname, Lname, Game1, Game2, Game3, Game4
+
+Fill in data for the table with your and 3 of your friends names and 4 game scores 
+(remember id for each row, primary key, should be assigned automatically)
+
+Phase 2:
+Create a report from the data in the table:
+Exclude ID column
+- Each column should have a custom header/title, atleast 1 should have a space in it
+- A column with player initials
+- A column with last name, first name separated by comma
+- Return each game's score
+- Column with total score of all four games for each player
+- Column with average score for each player
+
+IMPORTANT: Please post your code to the Q & A section for this lecture (or the prior video lecture)
+
+----------------------------------------------------------------------------------------------------------------
+
+Solution - Text
+Section 2, Lecture 21
+CREATE TABLE players1 (BowlerID INT NOT NULL AUTO_INCREMENT
+
+                     ,FNAME varchar(50) DEFAULT NULL
+                     ,LNAME varchar(50) DEFAULT NULL
+                     ,Game1 int DEFAULT NULL 
+                     ,Game2 int DEFAULT NULL 
+                     ,Game3 int DEFAULT NULL 
+                     ,Game4 int DEFAULT NULL                      
+                     ,PRIMARY KEY (BowlerID)); 
+INSERT INTO players1 (FNAME, LNAME,Game1,Game2,Game3,Game4)
+VALUES ('Mashrur', 'Hossain',121,87,115,124)
+      ,('Matt', 'Berstein',111,99,135,105)
+      ,('Anastasia', 'Ivanov',75,99,125,141)
+      ,('Mark', 'Futre',115,128,101,84);
+      
+SELECT *
+FROM players1;
+
+SELECT CONCAT(LNAME,', ',FNAME) AS Player
+      ,CONCAT(SUBSTRING(FNAME,1,1),SUBSTRING(LNAME,1,1)) AS Initials
+      ,GAME1 AS G1
+      ,GAME2 AS G2
+      ,GAME3 AS G3
+      ,GAME4 AS G4
+      ,GAME1 + GAME2 + GAME3 + GAME4 AS "Tournament Total"
+      ,(GAME1 + GAME2 + GAME3 + GAME4)/4 AS "Tournament Average"
+FROM players1;
+
+------------------------------------------------------------------------------------------
+
+Alternate method of running queries - script - Text version
+Section 2, Lecture 23
+To run a sql script, create a file (example: test1.sql) in your working directory and save it. 
+Add all the sql code you want to run in there. 
+
+Start a SQL cli session and use the source keyword to execute it. If you wanted to run test1.sql type in:
+source test1.sql
+
+--------------------------------------------------------------------------------------------
+
+Limit, order by and distinct - Text lecture
+Section 2, Lecture 26
+Large datasets where you don’t want to tax the system returning millions of rows use limit:
+
+SELECT *
+FROM actors
+LIMIT 10; 
+
+This query above will return the first 10 results from the actors table instead of all the rows.
+
+Order by can be used to sort the data that is returned in the query result:
+SELECT *
+FROM actors
+ORDER BY 3;
+
+This query above will return the results sorted by the 3rd column of the table in ascending order by default
+
+Which is the same as 
+SELECT *
+FROM actors
+ORDER BY LAST_NAME ASC;
+
+The ASC is for ascending which is implied.  The opposite is descending DESC
+
+SELECT *
+FROM actors
+ORDER BY 3 DESC;
+
+We can also sort by multiple columns at the same time and by name
+SELECT *
+FROM actors
+ORDER BY LAST_NAME ASC, FIRST_NAME DESC;
+Notice the order the Jerry and Ben are in.
+
+And you can combine LIMIT and ORDER BY
+SELECT *
+FROM project1.actors
+ORDER BY LAST_NAME ASC
+        ,FIRST_NAME ASC
+LIMIT 10;
+
+DISTINCT 
+
+Let's say you want to know all of the ratings for the movies 
+SELECT RATING
+FROM movies;
+
+But don’t like the duplicate rows and want to only display unique ratings.
+SELECT DISTINCT RATING
+FROM movies;
+
+Distinct only works when the whole row returned is unique. In the query below, 
+because each movie has a unique ID, none of the rows are removed.
+
+SELECT DISTINCT MovieID
+               ,RATING
+FROM movies;
+
+-----------------------------------------------------------------------------------------------------------------
+
+Count, like and group by - Text lecture
+Section 2, Lecture 28
+Count can be used as follows:
+
+SELECT COUNT(*) AS cnt
+FROM movies;
+
+This will return the number of movies in the table
+
+Try the following to get the number of movies for each rating and you'll get incorrect results:
+SELECT RATING
+      ,COUNT(*) AS cnt
+FROM movies;
+*Incorrect Results
+
+You can use GROUP BY (column name) to get correct results in such cases:
+SELECT RATING
+      ,COUNT(*) AS MOVIES
+FROM movies
+GROUP BY RATING;
+
+Like is used all the time for search when an entire description is not known, it's used with a % -> LIKE %
+SELECT *
+FROM movies
+WHERE TITLE like 'Night at the Museum%';
+
+Name the return columns with spaces using:
+SELECT COUNT(*) AS "Night at the Museum Movies"
+FROM movies
+WHERE TITLE like 'Night at the Museum%';
+
+You can put % before the word as well so like '%Museum%' and it will return all results that have museum in the title
+
+----------------------------------------------------------------------------------------------------------------
+
+Min and max - Text lecture
+Section 2, Lecture 30
+SELECT MAX(ReleaseYear)
+
+FROM movies;
+
+They work exactly how you would expect.
+
+SELECT Title
+      ,MAX(ReleaseYear)
+      ,RATING
+FROM movies;
+*Incorrect results
+
+SELECT MIN(ReleaseYear)
+      ,RATING
+FROM movies
+WHERE Title like 'Night at the Museum%'
+GROUP BY Title
+        ,RATING;
+
+SELECT RATING
+      ,MIN(ReleaseYear)
+FROM movies
+WHERE Title like 'Night at the Museum%'
+GROUP BY RATING;
+
+SELECT RATING
+      ,MIN(ReleaseYear)
+FROM movies
+GROUP BY RATING;
+
+SELECT RATING
+      ,MAX(ReleaseYear)
+FROM movies
+GROUP BY RATING;
+
+MySQL is more “flexible” than other SQL versions.  It doesn’t require the GROUP BY but it should.  
+It is likely you will get unhelpful or incorrect results when you do not use a group by.
+
+All result sets should either be part of an aggregate function, or in the Group By.
+
+------------------------------------------------------------------------------------------------------------
+
+Code challenge project - Text version
+Section 2, Lecture 32
+CREATE TABLE bowlResults (BowlResultID INT NOT NULL AUTO_INCREMENT
+
+                         ,FNAME varchar(50) DEFAULT NULL
+                         ,LNAME varchar(50) DEFAULT NULL
+                         ,Game_Num int DEFAULT NULL 
+                         ,Game_Score int DEFAULT NULL 
+                         ,PRIMARY KEY (BowlResultID));   
+
+INSERT INTO bowlResults (FNAME, LNAME,Game_Num, Game_Score)
+VALUES ('Mashrur', 'Hossain',1,121)
+      ,('Mashrur', 'Hossain',2,87)
+      ,('Mashrur', 'Hossain',3,115)
+      ,('Mashrur', 'Hossain',4,124)
+      ,('Matt', 'Berstein',1,111)
+      ,('Matt', 'Berstein',2,99)
+      ,('Matt', 'Berstein',3,135)
+      ,('Matt', 'Berstein',4,105)
+      ,('Anastasia', 'Ivanov',1,75)
+      ,('Anastasia', 'Ivanov',2,99)
+      ,('Anastasia', 'Ivanov',3,125)
+      ,('Anastasia', 'Ivanov',4,141)
+      ,('Mark', 'Futre',1,115)
+      ,('Mark', 'Futre',2,128)
+      ,('Mark', 'Futre',3,101)
+      ,('Mark', 'Futre',4,84);
+
+SELECT *
+FROM bowlResults;
+
+SELECT CONCAT(FNAME,' ',LNAME)  AS Player
+      ,SUM(Game_Score)          AS "Tournament Total"
+      ,SUM(Game_Score)/COUNT(*) AS "Tournament Ave"
+FROM  bowlResults     
+GROUP BY FNAME, LNAME   
+ORDER BY  SUM(Game_Score)/COUNT(*) DESC
+LIMIT 3;
+
+SELECT CONCAT(FNAME,' ',LNAME)  AS Player
+      ,MAX(Game_Score)          AS "Best Game"
+FROM  bowlResults     
+GROUP BY FNAME, LNAME   
+ORDER BY  MAX(Game_Score) DESC;
+
+SELECT DISTINCT FNAME AS "First Name"
+               ,LNAME AS "Last Name"
+FROM  bowlResults;
+
+---------------------------------------------------------------------------------------------
+
+Code challenge project - Text version
+Section 2, Lecture 32
+CREATE TABLE bowlResults (BowlResultID INT NOT NULL AUTO_INCREMENT
+
+                         ,FNAME varchar(50) DEFAULT NULL
+                         ,LNAME varchar(50) DEFAULT NULL
+                         ,Game_Num int DEFAULT NULL 
+                         ,Game_Score int DEFAULT NULL 
+                         ,PRIMARY KEY (BowlResultID));   
+
+INSERT INTO bowlResults (FNAME, LNAME,Game_Num, Game_Score)
+VALUES ('Mashrur', 'Hossain',1,121)
+      ,('Mashrur', 'Hossain',2,87)
+      ,('Mashrur', 'Hossain',3,115)
+      ,('Mashrur', 'Hossain',4,124)
+      ,('Matt', 'Berstein',1,111)
+      ,('Matt', 'Berstein',2,99)
+      ,('Matt', 'Berstein',3,135)
+      ,('Matt', 'Berstein',4,105)
+      ,('Anastasia', 'Ivanov',1,75)
+      ,('Anastasia', 'Ivanov',2,99)
+      ,('Anastasia', 'Ivanov',3,125)
+      ,('Anastasia', 'Ivanov',4,141)
+      ,('Mark', 'Futre',1,115)
+      ,('Mark', 'Futre',2,128)
+      ,('Mark', 'Futre',3,101)
+      ,('Mark', 'Futre',4,84);
+
+SELECT *
+FROM bowlResults;
+
+SELECT CONCAT(FNAME,' ',LNAME)  AS Player
+      ,SUM(Game_Score)          AS "Tournament Total"
+      ,SUM(Game_Score)/COUNT(*) AS "Tournament Ave"
+FROM  bowlResults     
+GROUP BY FNAME, LNAME   
+ORDER BY  SUM(Game_Score)/COUNT(*) DESC
+LIMIT 3;
+
+SELECT CONCAT(FNAME,' ',LNAME)  AS Player
+      ,MAX(Game_Score)          AS "Best Game"
+FROM  bowlResults     
+GROUP BY FNAME, LNAME   
+ORDER BY  MAX(Game_Score) DESC;
+
+SELECT DISTINCT FNAME AS "First Name"
+               ,LNAME AS "Last Name"
+FROM  bowlResults;
+
+------------------------------------------------------------------
+
+Data types in MySQL - Text lecture
+Section 3, Lecture 34
+https://en.wikipedia.org/wiki/SQL#Data_types
+
+Each column has a data type. They define what type of data is allowed in each field. 
+Understanding them unlocks tons of functions and features and avoids pitfalls that cause 
+a lot of heartache. These can be slightly different between SQL environments, but they all accomplish the same things.
+
+VARCHAR(n) where N is the maximum length of the string (65,535 characters)
+CHAR(n) fixed length of the string regardless of contents. It will be padded with spaces. 
+Anything longer than a few characters should be a VARCHAR as it generally takes up less space in the database.
+
+Read more: http://dev.mysql.com/doc/refman/5.7/en/char.html
+
+Each data type has a different size and takes different amounts of time to process.  
+Strings are handy in that they don't care what they are holding, dates, numbers, true/false, 
+but a database that relies on strings when they could use other data types are bigger, slower, 
+inefficient and miss out on all of the features built into MySQL.
+
+Date - no consideration of time.  Usually not the one you pick.
+Time - also not the one you usually want because of how limited it is.  Think of how you might handle midnight
+Timestamp - likely always the one you want to define.  
+
+Int - Integer is plus or minus -2,147,483,648 so it can handle basically anything. 
+There are other types, but int is usually good enough in most cases.
+
+Boolean -  unlike other database environments, MySQL doesn’t currently have a boolean (True/False). 
+Instead we use tinyint(1).  When creating a table, you can use “boolean”, and MySQL will use tinyint(1) instead.  
+0 = “False”, and 1=”True”.
+
+Decimal - Exact Values like money and measurements.  Decimals are defined as follows DECIMAL(A,B) where 
+A is the total number of digits, and B is the number of digtis after the period.  For example DECIMAL(5,2) 
+could handle anything from -999.99 to 999.99.  It could not handle 1000, or 123.456.
+
+------------------------------------------------------------------------------------------------------------------
+
+Where and not equal - Text lecture
+Section 3, Lecture 36
+In section 2 we looked at where but didn’t dive very far into it. Now we will explore 
+more options of the Where Clause….
+
+Where is how we control which rows are returned.  
+
+Example:
+SELECT Title
+FROM movies
+WHERE 1=1;
+
+Always true, so return every title for all movies(rows) in the table.
+
+SELECT 1 As Result
+FROM movies
+WHERE 1=1;
+
+SELECT 1 As Result
+FROM movies
+WHERE Rating=’PG’;
+
+It’s important to see that WHERE only controls which rows are returned, but has no other effect on 
+what data actually returns.
+
+SELECT *
+FROM movies
+WHERE RATING = "PG" 
+ AND Title LIKE "Night%";
+
+You can string as may conditions together as you need using AND
+
+SELECT *
+FROM movies
+WHERE RATING = "PG" 
+ AND Title NOT LIKE "Night%";
+
+NOT allows you to define what you don’t want displayed.
+
+---------------------------------------------------------------------------------------------------------------------
+
+Comparison operators - Text lecture
+Section 3, Lecture 38
+Greater than and less than are pretty straight forward in their use and meaning:
+
+SELECT title
+    ,release_year
+FROM movies
+WHERE release_year > 2005;   
+
+Notice that Night at the Museum and National Treasure are not in the list.
+
+SELECT title
+    ,release_year
+FROM movies
+WHERE release_year > 2005
+ AND  release_year < 2016; 
+
+We can combine greater than and less than to limit to a specific range.
+
+We can include the limits of the range using >= or <= (Greater Than or Equal To/Less Than or Equal To)
+SELECT title
+    ,release_year
+FROM movies
+WHERE release_year >= 2005
+ AND  release_year <= 2016;  
+
+While this is a great way to accomplish this, it’s also perfectly acceptable to use BETWEEN
+
+SELECT title
+    ,release_year
+FROM movies
+WHERE release_year BETWEEN 2005 AND 2016; 
+
+Exact Same results that include 2005 and 2016 
+
+Combination of both Greater Than and Less Than is <> which means Not Equal.  
+SELECT title
+      ,release_year
+FROM movies
+WHERE release_year <> 2016;  
+
+Notice that the only value missing is the 2016
+
+Not Equal also works well with other data types like strings.
+SELECT title
+      ,release_year
+FROM movies
+WHERE title <> 'Zoolander';   
+
+Just like = and <>, we can use IN to include or exclude multiple values at the same time
+SELECT title
+      ,release_year
+FROM movies
+WHERE release_year IN (2005,2009,2010);   
+
+In order to exclude items, we can use NOT IN
+SELECT title
+      ,release_year
+FROM movies
+WHERE release_year NOT IN (2005,2009,2010); 
+
+This also works well for Strings
+SELECT title
+      ,release_year
+FROM movies
+WHERE title IN ('Zoolander','Tropic Thunder');
+
+---------------------------------------------------------------------------------------------------------------------
+
+Or - Text lecture
+Section 3, Lecture 40
+OR Will allow you to have distinct conditions that may otherwise conflict
+
+example:
+SELECT *
+FROM movies
+WHERE RATING = "R" 
+  OR Title LIKE "Zoo%";
+
+Both of these accomplish the same thing but ()s and spacing help avoid mistakes. 
+
+SELECT *
+FROM movies
+WHERE ( RATING = "R" 
+        OR Title LIKE "Zoo%");
+        
+------------------------------------------------------------------------------------------
+
+Null and blanks - Text lecture
+Section 3, Lecture 42
+Let's add more data to help explore the issue of null and empty string: 
+
+INSERT INTO movies (title, rating)
+VALUES
+  ('DodgeBall: A True Underdog Story' ,'PG-13')
+  ,('Along Came Polly','PG-13')
+  ,('Anchorman:The Legend of Ron Burgundy','PG-13');
+
+INSERT INTO movies (title, release_year)
+VALUES
+  ('Anchorman 2: The Legend Continues' ,2013)
+  ,('Megamind',2010);
+
+INSERT INTO movies (title, rating)
+VALUES('Fight Club','');
+
+NULL Means there is no data.  This happens all the time depending on the data you are dealing with. 
+The issue comes is when you are trying come compare a non-existent value (null) to anything
+
+SELECT * 
+FROM movies
+WHERE NOT rating = 'PG-13'
+ AND  NOT rating = 'PG'
+ AND  NOT rating = 'R';
+
+Where did Anchorman 2 and Megamind go?
+
+SELECT * 
+FROM movies
+WHERE rating IS NULL;
+
+The issue is we were comparing NULL (a non existent value) to a value. Non-existent values don't equal anything. 
+“IS NULL” and IS NOT NULL” compares the field in a way that will return content in these scenarios.
+
+SELECT * 
+FROM movies
+WHERE rating = 'R'
+      OR rating IS NULL;
+
+We can compare a string to an empty string.
+SELECT * 
+FROM movies
+WHERE rating = 'R'
+      OR rating = ‘’;
+
+SELECT * 
+FROM movies
+WHERE rating = 'R'
+      OR IFNULL(rating,'') = ''; 
+
+IFNULL(A, B) where A is the field to be compared and B is the default value to be used when NULL is found.  
+Oracle uses NVL and SQL Server uses ISNULL
+
+-----------------------------------------------------------------------------------------------------------------
+
+Case statements - Text lecture
+Section 3, Lecture 44
+SELECT title
+      ,rating
+FROM movies;  
+
+SELECT title
+      ,rating
+      ,CASE
+         WHEN RATING = 'PG'    THEN 'Bring the Kids!'
+         WHEN RATING = 'PG-13' THEN 'Older Kids'
+         WHEN RATING = 'R'     THEN 'Not for Kids'
+         ELSE 'No Information'
+       END AS AUDIENCE
+FROM movies;   
+   
+Case statements allow a lot of flexibility. They evaluate the first WHEN, and if it passes, 
+it uses the THEN for the return value and skips to the next row.
+
+Else option and allows for a catch-all value like “No Information”
+The different 'whens' can be inspecting different values, and the CASE Statment can be used 
+in the SELECT or the WHERE.  
+Let revisit the NULL query from earlier.
+
+SELECT *
+FROM movies
+WHERE CASE 
+        WHEN rating IS NULL THEN 1
+        WHEN rating = ''    THEN 1
+        WHEN release_year <= 2007 THEN 1
+      END = 1;
+      
+----------------------------------------------------------------------------------------
+
+Dates and times - Text lecture
+Section 3, Lecture 46
+Some time functions:
+
+SELECT NOW()
+      ,CURDATE()
+      ,CURTIME();
+
+More information on time functons: http://dev.mysql.com/doc/refman/5.7/en/date-and-time-functions.html
+
+MySQL has prebuilt functions that offer some handy functionality when dealing with dates and times.
+
+NOW() returns the system date and time of the server  
+CURDATE() returns the system date without the time
+CURTIME() returns the system time without the date
+
+NOW() is useful for adding a timestamp when a row is being added to the database, but let’s use it to explore some other data functions 
+
+SELECT NOW()
+      ,CURDATE()
+      ,CURTIME()
+      ,YEAR(NOW())
+      ,YEAR(CURDATE());
+
+We can have just the year pulled out.  This function could easily be used to help group rows by years
+
+SELECT NOW()
+      ,MONTH(NOW())
+      ,MONTHNAME(Now());
+
+MySQL allows you to pull just the month by number or name
+
+SELECT NOW()
+      ,DAY(NOW())
+      ,DAYNAME(Now())
+      ,DAYOFMONTH(NOW())
+      ,DAYOFWEEK(NOW())
+      ,DAYOFYEAR(NOW());
+
+DAY gives the day of the month
+DAYNAME gives the name of the day of the week
+DAYOFMONTH is the same as DAY
+DAYOFWEEK gives the number corresponding to the day. Sunday is 1 and Saturday is 7
+DAYOFYEAR gives the day if we were counting from Jan 1st as 1, 
+
+You may have noticed that your cloud 9 Environment is not in your current timezone. Instead the System time is UTC. 
+Find your timezone here:
+https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+
+Then you can set your timezone:
+SET time_zone = '-7:00';
+SET GLOBAL time_zone = '-7:00';
+
+Then you can check the time difference:
+select @@global.time_zone, @@session.time_zone;
+
+You can then check your newly set time:
+select NOW();
+
+----------------------------------------------------------------------------------------------------------------
+
+Date, time and math - Text lecture
+Section 3, Lecture 48
+Let’s do some math with dates
+Start with a table
+CREATE TABLE person (personID INT NOT NULL AUTO_INCREMENT
+                    ,FNAME varchar(50) DEFAULT NULL
+                    ,LNAME varchar(50) DEFAULT NULL
+                    ,dob date DEFAULT NULL 
+                    ,PRIMARY KEY (personID)); 
+
+Insert a couple of rows
+INSERT INTO person (FNAME, LNAME,dob)
+VALUES ('Mashrur', 'Hossain','1981-12-25')
+      ,('Mark', 'Futre','1985-01-03');
+
+Let’s find ages, so we start with
+SELECT dob AS Birthdays
+      ,CURDATE()   AS Today
+FROM person;
+
+MySQL needs to know that you want to do date math and not just regular math.  
+There are rules for dates like 12 months in a year, and leap years and days in a week. 
+We need to use date specific functions to apply these rules like TIMESTAMPDIFF()
+
+SELECT dob AS "Birthday"
+      ,CURDATE()   AS Today
+      ,TIMESTAMPDIFF(YEAR,dob,CURDATE()) AS AGE
+FROM person;    
+
+Let’s find when when the next birthday will be.  In this case we are taking the year only from the current date, 
+attaching it to the month/day of the dob and displaying it as 'Birthday This Year'. Similarly, we are taking the 
+current date, adding a year, and then attaching the dob month/day to calculate what the dob will be next year. 
+The issue is we don’t know if it already happened this year or if it’s going to take place next year.
+
+First let's start with printing out birthday this year and birthday next year
+SELECT FNAME
+      ,dob AS Birthday
+      ,CURDATE()   AS Today
+      ,STR_TO_DATE(CONCAT(MONTH(dob),'/',DAY(dob),'/',YEAR(CURDATE())),'%m/%d/%Y') AS "Birthday This Year"
+      ,DATE_ADD( STR_TO_DATE(CONCAT(MONTH(dob),'/',DAY(dob),'/',YEAR(CURDATE())),'%m/%d/%Y'), INTERVAL 1 YEAR ) AS "Birthday Next Year"
+FROM person;
+
+Now, we can use a CASE Statement to help decide which birthday to use:
+SELECT FNAME
+      ,dob AS Birthday
+      ,CURDATE()   AS Today
+      ,STR_TO_DATE(CONCAT(MONTH(dob),'/',DAY(dob),'/',YEAR(CURDATE())),'%m/%d/%Y') AS "Birthday This Year"
+      ,DATE_ADD( STR_TO_DATE(CONCAT(MONTH(dob),'/',DAY(dob),'/',YEAR(CURDATE())),'%m/%d/%Y'), INTERVAL 1 YEAR ) AS "Birthday Next Year"
+      ,CASE 
+         WHEN STR_TO_DATE(CONCAT(MONTH(dob),'/',DAY(dob),'/',YEAR(CURDATE())),'%m/%d/%Y') >= CURDATE()
+           THEN STR_TO_DATE(CONCAT(MONTH(dob),'/',DAY(dob),'/',YEAR(CURDATE())),'%m/%d/%Y')
+         ELSE DATE_ADD( STR_TO_DATE(CONCAT(MONTH(dob),'/',DAY(dob),'/',YEAR(CURDATE())),'%m/%d/%Y'), INTERVAL 1 YEAR )
+       END AS "Next Birthday"
+FROM person;
+
+-----------------------------------------------------------------------------------------------------------
+
+Text solution to final project on birthday reporting
+Section 3, Lecture 50
+Section 3 final project!
+
+Create a table with your four best friends first names, last names and their birthdays.
+Create a report which will return the following:
+1. First and last name together in one column
+2. Current Age
+3. Create a column - if birthday is today, return ‘Call Today’, else if birthday is less than 14 days, display ‘Send Card”, else display Birthday is in (name of month).
+4. Only return friends that are within the next 6 months.
+5. Test your report by replacing current date with various hard coded dates.
+
+First create the table and fill in data:
+CREATE TABLE Friends (FriendID INT NOT NULL AUTO_INCREMENT
+                     ,FNAME varchar(50) DEFAULT NULL
+                     ,LNAME varchar(50) DEFAULT NULL
+                     ,dob date DEFAULT NULL 
+                     ,PRIMARY KEY (FriendID));   
+
+INSERT INTO Friends (FNAME, LNAME,dob)
+VALUES ('Mashrur', 'Hossain','1982-12-01')
+      ,('Matt', 'Berstein','1980-08-05')
+      ,('Anastasia', 'Ivanov','1989-04-01')
+      ,('Mark', 'Futre','1989-07-04');
+
+SELECT *
+FROM Friends;
+
+Its best to build these in phases. Return the individual parts before you incorporate them into case statements
+SELECT CONCAT(FNAME,' ',LNAME)  AS Friend
+      ,TIMESTAMPDIFF(YEAR,dob,CURDATE()) AS AGE
+      ,dob
+      ,CURDATE()
+      ,STR_TO_DATE(CONCAT(MONTH(dob),'/',DAY(dob),'/',YEAR(CURDATE())),'%m/%d/%Y') AS BDAY_THIS_YR
+      ,DATE_ADD( STR_TO_DATE(CONCAT(MONTH(dob),'/',DAY(dob),'/',YEAR(CURDATE())),'%m/%d/%Y'), INTERVAL 1 YEAR ) AS BDAY_NEXT_YR
+      ,DATE_ADD(CURDATE(), INTERVAL 6 MONTH) AS 6Months
+      ,MONTHNAME(dob) AS "Birth Month"
+FROM Friends
+WHERE CASE 
+         WHEN STR_TO_DATE(CONCAT(MONTH(dob),'/',DAY(dob),'/',YEAR(CURDATE())),'%m/%d/%Y') >= CURDATE()
+           THEN STR_TO_DATE(CONCAT(MONTH(dob),'/',DAY(dob),'/',YEAR(CURDATE())),'%m/%d/%Y')
+         ELSE DATE_ADD( STR_TO_DATE(CONCAT(MONTH(dob),'/',DAY(dob),'/',YEAR(CURDATE())),'%m/%d/%Y'), INTERVAL 1 YEAR )
+       END BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 6 MONTH)
+       ;
+
+Now let's add in an update:
+SELECT CONCAT(FNAME,' ',LNAME)  AS Friend
+      ,TIMESTAMPDIFF(YEAR,dob,CURDATE()) AS AGE
+      ,CASE
+         WHEN STR_TO_DATE(CONCAT(MONTH(dob),'/',DAY(dob),'/',YEAR(CURDATE())),'%m/%d/%Y') = CURDATE()
+           THEN 'Call Today'
+         WHEN CASE 
+                WHEN STR_TO_DATE(CONCAT(MONTH(dob),'/',DAY(dob),'/',YEAR(CURDATE())),'%m/%d/%Y') >= CURDATE()
+                  THEN STR_TO_DATE(CONCAT(MONTH(dob),'/',DAY(dob),'/',YEAR(CURDATE())),'%m/%d/%Y')
+                ELSE DATE_ADD( STR_TO_DATE(CONCAT(MONTH(dob),'/',DAY(dob),'/',YEAR(CURDATE())),'%m/%d/%Y'), INTERVAL 1 YEAR )
+              END <= DATE_ADD(CURDATE(), INTERVAL 14 DAY)  
+           THEN 'Send a card'
+         ELSE concat('Birthday is in ',MONTHNAME(dob))
+       END AS ToDo
+FROM Friends
+WHERE CASE 
+         WHEN STR_TO_DATE(CONCAT(MONTH(dob),'/',DAY(dob),'/',YEAR(CURDATE())),'%m/%d/%Y') >= CURDATE()
+           THEN STR_TO_DATE(CONCAT(MONTH(dob),'/',DAY(dob),'/',YEAR(CURDATE())),'%m/%d/%Y')
+         ELSE DATE_ADD( STR_TO_DATE(CONCAT(MONTH(dob),'/',DAY(dob),'/',YEAR(CURDATE())),'%m/%d/%Y'), INTERVAL 1 YEAR )
+       END BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 6 MONTH)
+       ;
+
+That's it! now let's test it with hardcoding different dates:
+Find and replace works wonders.
+
+SELECT CONCAT(FNAME,' ',LNAME)  AS Friend
+      ,TIMESTAMPDIFF(YEAR,dob,'2016-08-05') AS AGE
+      ,CASE
+         WHEN STR_TO_DATE(CONCAT(MONTH(dob),'/',DAY(dob),'/',YEAR('2016-08-05')),'%m/%d/%Y') = '2016-08-05'
+           THEN 'Call Today'
+         WHEN CASE 
+                WHEN STR_TO_DATE(CONCAT(MONTH(dob),'/',DAY(dob),'/',YEAR('2016-08-05')),'%m/%d/%Y') >= '2016-08-05'
+                  THEN STR_TO_DATE(CONCAT(MONTH(dob),'/',DAY(dob),'/',YEAR('2016-08-05')),'%m/%d/%Y')
+                ELSE DATE_ADD( STR_TO_DATE(CONCAT(MONTH(dob),'/',DAY(dob),'/',YEAR('2016-08-05')),'%m/%d/%Y'), INTERVAL 1 YEAR )
+              END <= DATE_ADD('2016-08-05', INTERVAL 14 DAY)  
+           THEN 'Send a card'
+         ELSE concat('Birthday is in ',MONTHNAME(dob))
+       END AS ToDo
+FROM Friends
+WHERE CASE 
+         WHEN STR_TO_DATE(CONCAT(MONTH(dob),'/',DAY(dob),'/',YEAR('2016-08-05')),'%m/%d/%Y') >= '2016-08-05'
+           THEN STR_TO_DATE(CONCAT(MONTH(dob),'/',DAY(dob),'/',YEAR('2016-08-05')),'%m/%d/%Y')
+         ELSE DATE_ADD( STR_TO_DATE(CONCAT(MONTH(dob),'/',DAY(dob),'/',YEAR('2016-08-05')),'%m/%d/%Y'), INTERVAL 1 YEAR )
+       END BETWEEN '2016-08-05' AND DATE_ADD('2016-08-05', INTERVAL 6 MONTH)
+       ;
+       
+-----------------------------------------------------------------------------------------------------------------
+
+Update - Text lecture
+Section 4, Lecture 52
+In previous lectures we learned about select like below:
+
+SELECT title
+      ,release_year
+FROM movies
+WHERE release_year IS NULL;
+
+If we want to update or change the data, we use UPDATE instead of select:
+Use a select to find what to update
+SELECT *
+FROM movies
+WHERE Title = 'Fight Club'; 
+
+Then run an update on the same selection criteria:
+UPDATE movies
+SET ReleaseYear = 1999
+WHERE Title = 'Fight Club'; 
+
+We can update multiple rows and multiple columns at the same time:
+SELECT *
+FROM movies
+WHERE title IN ('DodgeBall: A True Underdog Story'
+               ,'Along Came Polly'
+               ,'Anchorman:The Legend of Ron Burgundy');   
+
+Rows matched:3 Changed:3
+If you run this again, it will say matched: 3, Changed: 0
+
+Use SELECT * to verify your WHERE before updating a table.
+
+--------------------------------------------------------------------------------------
+
+Update based on comparison - Text lecture
+Section 4, Lecture 54
+Let’s create some data to work with: 
+CREATE TABLE CustBal (CustID int NOT NULL AUTO_INCREMENT
+            ,CheckingBalance DECIMAL(8,2)
+            ,SavingsBalance DECIMAL(8,2)
+            ,CreditCardBalance DECIMAL(8,2)
+            ,CreditCardTotalCredit DECIMAL(8,2)
+            ,CreditCardAvailableCredit DECIMAL(8,2)
+            ,TotalBalance DECIMAL(8,2)
+            ,ActiveStatus boolean
+            ,primary key (CustID));
+
+INSERT INTO CustBal ( CheckingBalance
+                     ,SavingsBalance
+                     ,CreditCardBalance
+                     ,CreditCardTotalCredit
+                     ,CreditCardAvailableCredit
+                     ,TotalBalance
+                     ,ActiveStatus)
+VALUES (835.27 , 2223.01 ,   123.09 ,  1000.00 , NULL , NULL , 1)
+      ,(165.27 , 1223.01 ,     0.00 ,  1000.00 , NULL , NULL , 1)
+      ,(899.27 , 3223.01 ,  9125.09 , 20000.00 , NULL , NULL , 1)
+      ,(  0.00 ,    0.00 ,    00.00 ,     0.00 , NULL , NULL , 0)      
+      ,(123.27 , 4223.01 ,   123.00 ,   800.00 , NULL , NULL , 1)
+      ,( 65.00 , 6223.01 , 21123.09 , 20000.00 , NULL , NULL , 1)
+      ,(315.90 , 7223.01 ,     0.00 , 21000.00 , NULL , NULL , 1)
+      ,(992.22 , 1923.01 , 20000.00 , 20000.00 , NULL , NULL , 1)
+      ,( 75.21 , 4223.01 ,  1123.51 , 15000.00 , NULL , NULL , 1)
+      ,(165.22 ,    0.01 , 15123.08 , 16000.00 , NULL , NULL , 0)
+      ,(455.23 ,    0.00 ,  4123.00 ,  5000.00 , NULL , NULL , 1);
+
+Let's say we wanted a process to update the customer accounts
+1) Use Select Statements to plan out what you want to do
+SELECT CustID
+      ,CreditCardTotalCredit
+      ,CreditCardBalance 
+      ,CreditCardAvailableCredit                 AS OldCreditCardAvailableCredit
+      ,CreditCardTotalCredit - CreditCardBalance AS NewCreditCardAvailableCredit
+FROM CustBal 
+WHERE ActiveStatus = 1;
+      
+SELECT CustID
+      ,CheckingBalance
+      ,SavingsBalance
+      ,CreditCardBalance
+      ,TotalBalance                                          AS OldTotalBalance 
+      ,CheckingBalance + SavingsBalance - CreditCardBalance  AS NewTotalBalance 
+FROM CustBal 
+WHERE ActiveStatus = 1;
+
+We could have combined them into one larger select, but breaking it apart makes it easier to read in the terminal window.
+
+2) Put it together into an update statement
+UPDATE CustBal
+SET CreditCardAvailableCredit = CreditCardTotalCredit - CreditCardBalance
+   ,TotalBalance              = CheckingBalance + SavingsBalance - CreditCardBalance
+WHERE ActiveStatus = 1;
+
+-------------------------------------------------------------------------------------------------------------
+
+Delete - Text lecture
+Section 4, Lecture 56
+Delete is just like Select but instead of returning rows with information, 
+it removes them from the table. As a rule, always use a select statement to verify what you are about to remove.
+
+Example, remove all of the inactive accounts from our CustBal table:
+
+First, identify the inactive accounts:
+SELECT *
+FROM CustBal 
+WHERE ActiveStatus = 0;
+
+To delete, replace SELECT * with DELETE and execute;
+DELETE 
+FROM CustBal 
+WHERE ActiveStatus = 0;
+
+------------------------------------------------------------------------------------
+
+Primary and foreign keys - Text lecture
+Section 5, Lecture 58
+Primary Keys and Foreign Keys 
+
+While not always, most tables use Primary Keys to uniquely identify each row. 
+In our exercises, we’ve had an auto incrementing integer that keeps the rows unique. 
+Think about what would happen if you had lots of rows that were identical, how do you 
+keep them separate or unique to identify them? Understanding keys is essential when we 
+start exploring joining tables.
+A primary key keeps every row unique. If you were going to join two tables together, y
+ou can use the primary key from one table to reference another
+
+In the examples in the video, we have 2 tables. Persons and Movies. Each has an integer 
+as their primary key. Notice that the Persons Table uses the Primary key from Movies in 
+the Favorite Movie column. This is an example of a foreign key. The Favorite Movie 
+column contains they key of another table. Notice that rows in the Movies table can 
+be referenced several times or not at all. 
+
+Another example in the video is another table ‘MoviesPeopleHaveSeen’. Both PersonID and MovieID 
+are foreign keys, but together they make the primary key of this table. This means, no two rows 
+can have the exact same PersonID and MovieID combination. Setting up tables like this allows us to 
+have details about the movie and details about the people recorded only once. If a detail about a 
+move changes, we change it on the movies table in one place which saves space and simplifies updates, 
+otherwise we would have to update every table that had movies in them. 
+
+-----------------------------------------------------------------------------------------------------------------
+
+Data prep for joins - Text lecture
+Section 5, Lecture 60
+Lets prepare some tables for Joins.
+Generally, you don’t want to rename tables, but let's expand the definition of our actors table and name it as people
+
+RENAME TABLE actors TO people;
+
+Now let's add some more people:
+
+INSERT INTO people (FIRST_NAME , LAST_NAME)
+VALUES ('Steven','Spielberg')
+    ,('Shawn','Levy') 
+    ,('Jon','Turteltaub') 
+    ,('Rawson','Thurber') 
+    ,('John','Hamburg') 
+    ,('Adam','McKay') 
+    ,('Tom','McGrath')
+    ,('David','Fincher');
+
+Now let's add a director column to the movies table which will be a foreign key with the primary key of the people table:
+
+ALTER TABLE movies 
+ADD COLUMN  Director INT NULL;
+
+Now let's set directors for each row in the movies table:
+UPDATE movies
+SET Director = 1
+WHERE MovieId IN (1,2,7);
+
+UPDATE movies
+SET Director = 17
+WHERE MovieId IN (3,4,5);
+
+UPDATE movies
+SET Director = 18
+WHERE MovieId = 6;
+
+UPDATE movies
+SET Director = 19
+WHERE MovieId = 8;
+
+UPDATE movies
+SET Director = 20
+WHERE MovieId = 9;
+
+UPDATE movies
+SET Director = 21
+WHERE MovieId IN (10,11);
+
+UPDATE movies
+SET Director = 22
+WHERE MovieId = 12;
+
+UPDATE movies
+SET Director = 23
+WHERE MovieId = 13;
+
+Let's create a characters table:
+
+CREATE TABLE characters ( characterID INT NOT NULL AUTO_INCREMENT
+                         ,MovieID INT NULL 
+                         ,ActorID INT NULL
+                         ,CharacterName VARCHAR(100) NULL
+                         ,PRIMARY KEY (characterID));    
+
+Let's add some characters to it with the foreign keys of MovieID and ActorID, along with Character Name in the movie:
+INSERT INTO characters (MovieID , ActorID, CharacterName) VALUES
+ (1 , 1 , 'Derek Zoolander')
+,(1 , 2 , 'Hansel')
+,(1 , 3 , 'Matilda Jeffries')
+,(1 , 4 , 'Mugatu')
+,(1 , 5 , 'Katinka')
+,(1 , 6 , 'Maury Ballstein')
+,(1 , 7 , 'J.P. Prewitt')
+,(1 , 8 , 'Larry Zoolander')
+,(1 , 9 , 'Todd')
+,(2 , 1 , 'Derek Zoolander')
+,(2 , 2 , 'Hansel')
+,(2 , 3 , 'Matilda Jeffries')
+,(2 , 4 , 'Mugatu')
+,(2 , 5 , 'Katinka')
+,(2 , 9 , 'Todd')
+,(2 , 10, 'Alexanya Atoz')
+,(2 , 11, 'Valentina Valencia')
+,(2 , 12, 'Lenny Kravitz')
+,(2 , 14, 'Justin Bieber')
+,(2 , 15, 'Derek Jr.')
+,(5 , 1 , 'Larry Daley')
+,(5 , 2 , 'Jedediah')
+,(4 , 1 , 'Larry Daley')
+,(4 , 2 , 'Jedediah')
+,(3 , 1 , 'Larry Daley')
+,(3 , 2 , 'Jedediah')
+,(3 , 1 , 'Laaa')
+,(6 , 8 , 'Patrick Gates')
+,(7 , 1 , 'Tugg Speedman')
+,(7 , 3 , 'Rebecca')
+,(7 , 8 , 'Jon Voight')
+,(8 , 3 , 'Kate Veatch')
+,(8 , 1 , 'White Goodman')
+,(9 , 1 , 'Reuben Feffer');
+
+---------------------------------------------------------------------------------------------------------
+
+Joins and aliases - Text lecture
+Section 5, Lecture 62
+Join:
+
+SELECT * 
+FROM movies
+    ,people
+WHERE movies.DIRECTOR = people.ActorID ;
+
+We simply list the tables with a comma to separate them and we define how the two tables 
+relate to each other in the where clause.
+
+When dealing with more than one table, we should always specify the table. Often times 
+tables have columns with the same names and MySQL won’t know which one you want.  
+
+Let's select some specific columns instead of all of them:  
+SELECT movies.TITLE
+      ,movies.RELEASE_YEAR
+      ,movies.RATING
+      ,CONCAT(people.FIRST_NAME,' ',people.LAST_NAME) AS Director
+FROM movies
+    ,people
+WHERE movies.DIRECTOR = people.ActorID ;
+
+While specifying the table is necessary in many situations, and always a good habit, 
+it causes a Lot of typing and can make the code look overwhelming. Which is why we use aliases
+
+Aliases
+
+SELECT A.TITLE
+      ,A.RELEASE_YEAR
+      ,A.RATING
+      ,CONCAT(B.FIRST_NAME,' ',B.LAST_NAME) AS Director
+FROM movies A
+    ,people B
+WHERE A.DIRECTOR = B.ActorID ;
+
+You can use anything as the alias, but I have found that simply using from letters A-Z 
+for each table is the best way. It’s clean and straightforward. All of the examples and 
+code going forward will incorporate this type of aliasing.
+
+------------------------------------------------------------------------------------------------------------------
+
+More about joins - Text lecture
+Section 5, Lecture 64
+Let’s Join Movies with Characters
+
+SELECT A.TITLE
+      ,A.RELEASE_YEAR
+      ,A.RATING
+      ,B.CharacterName
+      ,B.ActorID
+FROM movies A
+    ,characters B
+WHERE A.MovieID = B.MovieID;
+
+We can add additional tables:
+SELECT A.TITLE
+      ,A.RELEASE_YEAR
+      ,A.RATING
+      ,B.CharacterName
+      ,CONCAT(C.FIRST_NAME,' ',C.LAST_NAME) AS Actor
+FROM movies A
+    ,characters B
+    ,people C
+WHERE A.MovieID = B.MovieID 
+ AND  B.ActorID  = C.ActorID;
+
+We can reference the same table multiple times to pull information 
+for various reasons. In the case below, we are using the People table 
+to provide the name of both the directors and the actors
+
+SELECT A.TITLE
+      ,CONCAT(D.FIRST_NAME,' ',D.LAST_NAME) AS Director
+      ,A.RELEASE_YEAR
+      ,A.RATING
+      ,B.CharacterName
+      ,CONCAT(C.FIRST_NAME,' ',C.LAST_NAME) AS Actor
+FROM movies A
+    ,characters B
+    ,people C
+    ,people D
+WHERE A.MovieID  = B.MovieID 
+ AND  B.ActorID  = C.ActorID
+ AND  A.DIRECTOR = D.ActorID
+ AND  A.TITLE LIKE 'Zoo%';
+
+This can be written a different way. Listing tables in the FROM and 
+joining them in the WHERE is perfectly acceptable, you can also join 
+tables by putting everything in the FROM:
+
+SELECT A.TITLE
+      ,CONCAT(D.FIRST_NAME,' ',D.LAST_NAME) AS Director
+      ,A.RELEASE_YEAR
+      ,A.RATING
+      ,B.CharacterName
+      ,CONCAT(C.FIRST_NAME,' ',C.LAST_NAME) AS Actor
+FROM movies A
+       INNER JOIN characters B
+         ON A.MovieID  = B.MovieID 
+       INNER JOIN people C
+         ON B.ActorID  = C.ActorID  
+       INNER JOIN people D
+         ON A.DIRECTOR = D.ActorID
+WHERE A.TITLE LIKE 'Zoo%';
+
+Both of these joins are Inner Joins. They mean that all of the rows in all 
+of the tables need to exist. If no actors were listed for a movie, the movie 
+won't show on the list. If no movies are associated with that actor, the actor won’t be returned.
+
+----------------------------------------------------------------------------------------------------------------
+
+Inner, Left, Outer and Right joins - Text lecture
+Section 5, Lecture 66
+Before we go any further with Joins, let's get the main types straight: INNER, LEFT OUTER, RIGHT OUTER and FULL OUTER.  
+
+There are a few ways to specify these types in SQL, but for the purposes of this course, 
+we will stick to these terms: LEFT OUTER JOIN is often called a LEFT JOIN, and an INNER JOIN may 
+be referred to as a JOIN. A FULL OUTER JOIN can be called an OUTER JOIN. etc.
+
+Imagine we have two tables:
+
+Table A
+ ColA
+  1
+  2
+  3
+  4
+
+Table B 
+ ColB
+  3
+  4
+  5
+  6
+
+If we were to join these tables together, the number of rows returned would depend on the join we use. 
+Notice 1 and 2 are unique to Table A, 5 and 6 are unique to table B. 3 and 4 are common to both tables.
+
+SELECT *
+FROM A INNER JOIN B ON A.ColA = B.ColB;
+
+This would return:
+ColA | ColB
+ 3   |  3
+ 4   |  4
+INNER JOIN requires that the value be on both tables
+
+SELECT *
+FROM A LEFT OUTER JOIN B ON A.ColA = B.ColB;
+
+This would return:
+ColA | ColB
+ 1   | NULL
+ 2   | NULL
+ 3   |  3
+ 4   |  4
+LEFT OUTER JOIN returns everything from the first table (left) whether or not the second table has a corresponding row
+
+SELECT *
+FROM A RIGHT OUTER JOIN B ON A.ColA = B.ColB;
+
+This would return:
+ColA | ColB
+ 3   |  3
+ 4   |  4
+ NULL|  5
+ NULL|  6
+RIGHT OUTER JOIN returns everything from the second table (right) whether or not the first table has a corresponding row
+
+SELECT *
+FROM A FULL OUTER JOIN B ON A.ColA = B.ColB;
+
+This would return:
+ColA | ColB
+ 1   | NULL
+ 2   | NULL
+ 3   |  3
+ 4   |  4
+ NULL|  5
+ NULL|  6
+FULL OUTER JOIN returns everything from both tables whether or not there are corresponding rows
+
