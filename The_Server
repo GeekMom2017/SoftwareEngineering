@@ -1,0 +1,15 @@
+OSX : Starting the Server
+https://dev.mysql.com/doc/refman/5.7/en/starting-server.html
+
+This section describes how start the server on Unix and Unix-like systems. 
+For some suggested commands that you can use to test whether the server is 
+accessible and working properly, see Section 2.10.3, “Testing the Server”.
+
+
+
+Windows : Starting the Server
+https://dev.mysql.com/doc/refman/5.7/en/windows-server-first-start.html
+
+This section gives a general overview of starting the MySQL server. T
+he following sections provide more specific information for starting the 
+MySQL server from the command line or as a Windows service.
